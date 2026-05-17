@@ -24,6 +24,7 @@
         --orange: #ff9f0a;
         --red: #ff3b30;
         --shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+        --soft-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
       }
 
       * {
@@ -65,12 +66,13 @@
       textarea {
         width: 100%;
         min-height: 48px;
-        border: 1px solid transparent;
+        border: 1px solid rgba(60, 60, 67, 0.1);
         border-radius: 8px;
-        background: var(--surface-muted);
+        background: rgba(247, 247, 250, 0.86);
         color: var(--ink);
         padding: 12px;
         outline: none;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
       }
 
       textarea {
@@ -97,7 +99,7 @@
         width: min(100%, 430px);
         min-height: 100dvh;
         margin: 0 auto;
-        padding: max(16px, env(safe-area-inset-top)) 14px calc(96px + env(safe-area-inset-bottom));
+        padding: max(16px, env(safe-area-inset-top)) 14px calc(84px + env(safe-area-inset-bottom));
       }
 
       .topbar,
@@ -144,19 +146,19 @@
       }
 
       .score-pill {
-        min-width: 98px;
-        padding: 12px;
-        border: 1px solid var(--line);
+        min-width: 88px;
+        padding: 10px 11px;
+        border: 1px solid rgba(0, 122, 255, 0.16);
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.72);
-        box-shadow: var(--shadow);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(239, 247, 255, 0.82));
+        box-shadow: var(--soft-shadow);
         text-align: center;
         backdrop-filter: blur(18px);
       }
 
       .score-pill strong {
         display: block;
-        font-size: 23px;
+        font-size: 21px;
         line-height: 1.05;
         font-variant-numeric: tabular-nums;
       }
@@ -208,11 +210,21 @@
         flex: 1;
         min-width: 0;
         display: grid;
-        gap: 8px;
-        padding: 13px;
-        border: 1px solid var(--line);
+        gap: 9px;
+        padding: 12px;
+        border: 1px solid rgba(60, 60, 67, 0.12);
         border-radius: 8px;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+      }
+
+      .time-card input {
+        min-height: 52px;
+        border-color: rgba(60, 60, 67, 0.08);
+        background: rgba(248, 249, 252, 0.92);
+        text-align: center;
+        font-size: 19px;
+        font-weight: 500;
       }
 
       .time-card span,
@@ -422,7 +434,7 @@
         transform: translateX(50%);
         justify-content: space-around;
         gap: 8px;
-        padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
+        padding: 6px 12px calc(6px + env(safe-area-inset-bottom));
         border-top: 1px solid var(--line);
         background: rgba(251, 251, 253, 0.82);
         backdrop-filter: blur(22px);
@@ -433,7 +445,7 @@
         display: grid;
         place-items: center;
         gap: 3px;
-        min-height: 58px;
+        min-height: 52px;
         background: transparent;
         color: var(--muted);
         font-size: 12px;
@@ -553,11 +565,11 @@
             </select>
           </label>
           <label class="field-block">
-            <span>咖啡因</span>
-            <input id="caffeine" type="number" min="0" step="0.01" placeholder="克" inputmode="decimal" />
+            <span>咖啡因 mg</span>
+            <input id="caffeine" type="number" min="0" step="1" placeholder="毫克" inputmode="numeric" />
           </label>
         </div>
-        <p class="hint">例：一杯美式约 0.08-0.15g 咖啡因。</p>
+        <p class="hint">例：一杯美式约 80-150mg 咖啡因。</p>
 
         <div class="field-block">
           <label for="exerciseType">运动</label>
@@ -616,7 +628,7 @@
         <article class="chart-card">
           <div class="chart-head">
             <h3>咖啡因摄入</h3>
-            <span>克</span>
+            <span>mg</span>
           </div>
           <canvas id="caffeineChart" width="640" height="300"></canvas>
         </article>
@@ -651,7 +663,8 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script>
-      const STORAGE_KEY = "mianji.sleep.records.v2";
+      const STORAGE_KEY = "mianji.sleep.records.v3";
+      const PREVIOUS_KEY = "mianji.sleep.records.v2";
       const LEGACY_KEY = "mianji.sleep.records.v1";
       const today = new Date();
       const dateInput = document.querySelector("#recordDate");
@@ -696,12 +709,24 @@
         try {
           const current = JSON.parse(localStorage.getItem(STORAGE_KEY));
           if (current) return current;
+          const previous = JSON.parse(localStorage.getItem(PREVIOUS_KEY)) || {};
+          const converted = {};
+          Object.entries(previous).forEach(([key, record]) => {
+            converted[key] = {
+              ...record,
+              caffeine: caffeineToMg(record.caffeine),
+            };
+          });
+          if (Object.keys(converted).length) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(converted));
+            return converted;
+          }
           const legacy = JSON.parse(localStorage.getItem(LEGACY_KEY)) || {};
           const migrated = {};
           Object.entries(legacy).forEach(([key, record]) => {
             migrated[key] = {
               ...record,
-              caffeine: record.caffeine ?? cupsToCaffeine(record.coffee),
+              caffeine: caffeineToMg(record.caffeine ?? cupsToCaffeine(record.coffee)),
             };
           });
           if (Object.keys(migrated).length) localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
@@ -717,7 +742,13 @@
 
       function cupsToCaffeine(cups) {
         const value = Number(cups || 0);
-        return value ? Number((value * 0.1).toFixed(2)) : 0;
+        return value ? Math.round(value * 100) : 0;
+      }
+
+      function caffeineToMg(value) {
+        const amount = Number(value || 0);
+        if (!Number.isFinite(amount) || amount <= 0) return 0;
+        return amount <= 2 ? Math.round(amount * 1000) : Math.round(amount);
       }
 
       function nowTime() {
@@ -835,10 +866,10 @@
         }
 
         const caffeine = Number(record.caffeine || 0);
-        if (caffeine > 0.2) {
+        if (caffeine > 200) {
           score -= 12;
-          tips.push("咖啡因超过 0.2g，尽量把咖啡安排在下午早些时候之前。");
-        } else if (caffeine > 0.08) {
+          tips.push("咖啡因超过 200mg，尽量把咖啡安排在下午早些时候之前。");
+        } else if (caffeine > 80) {
           score -= 5;
           tips.push("咖啡因摄入不算高，但如果入睡困难，可以继续下调一点。");
         } else {
@@ -868,7 +899,7 @@
         const exerciseText = record.exerciseType
           ? `${record.exerciseType}${exerciseMinutes ? ` ${exerciseMinutes} 分钟` : ""}`
           : "未记录运动";
-        const summary = `本次睡眠 ${formatHours(hours)}，咖啡因 ${caffeine.toFixed(2)}g，${exerciseText}，心情${record.mood || "未选择"}。`;
+        const summary = `本次睡眠 ${formatHours(hours)}，咖啡因 ${Math.round(caffeine)}mg，${exerciseText}，心情${record.mood || "未选择"}。`;
         return { score, title, summary, tips: tips.slice(0, 3) };
       }
 
@@ -899,7 +930,7 @@
         const avgCaffeine = caffeineValues.length ? caffeineValues.reduce((sum, value) => sum + value, 0) / caffeineValues.length : null;
         const exerciseDays = recentRecords.filter((record) => Number(record.exerciseMinutes || 0) > 0 || record.exerciseType).length;
         document.querySelector("#avgSleep").textContent = avgSleep === null ? "--" : formatHours(avgSleep);
-        document.querySelector("#avgCaffeine").textContent = avgCaffeine === null ? "--" : `${avgCaffeine.toFixed(2)}g`;
+        document.querySelector("#avgCaffeine").textContent = avgCaffeine === null ? "--" : `${Math.round(avgCaffeine)}mg`;
         document.querySelector("#exerciseDays").textContent = `${exerciseDays}天`;
       }
 
@@ -959,7 +990,7 @@
         const sleepValues = days.map((day) => ({ value: sleepHours(records[day]?.sleepTime, records[day]?.wakeTime) || 0 }));
         const caffeineValues = days.map((day) => ({ value: Number(records[day]?.caffeine || 0) }));
         drawLineChart(document.querySelector("#sleepChart"), [{ color: "#007aff", values: sleepValues }], { labels, max: 10 });
-        drawLineChart(document.querySelector("#caffeineChart"), [{ color: "#ff9f0a", values: caffeineValues }], { labels, max: 0.4 });
+        drawLineChart(document.querySelector("#caffeineChart"), [{ color: "#ff9f0a", values: caffeineValues }], { labels, max: 400 });
       }
 
       function updateHistory() {
@@ -974,7 +1005,7 @@
             const report = buildReport(record);
             const extras = [
               record.mood ? `心情：${record.mood}` : "",
-              record.caffeine ? `咖啡因：${Number(record.caffeine).toFixed(2)}g` : "",
+              record.caffeine ? `咖啡因：${Math.round(Number(record.caffeine))}mg` : "",
               record.exerciseType ? `运动：${record.exerciseType}${record.exerciseMinutes ? ` ${record.exerciseMinutes}分钟` : ""}` : "",
               `评分：${report.score}`,
             ]
