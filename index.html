@@ -3,432 +3,506 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0f766e" />
+    <meta name="theme-color" content="#f5f5f7" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="眠迹" />
     <title>眠迹</title>
     <style>
-:root {
-  color-scheme: light;
-  --bg: #eef7f4;
-  --surface: #ffffff;
-  --surface-soft: #f6fbf9;
-  --ink: #14211f;
-  --muted: #60706c;
-  --line: #d9e7e2;
-  --primary: #0f766e;
-  --primary-dark: #115e59;
-  --accent: #c2410c;
-  --danger: #b42318;
-  --shadow: 0 18px 42px rgba(15, 118, 110, 0.12);
-}
+      :root {
+        color-scheme: light;
+        --bg: #f5f5f7;
+        --surface: rgba(255, 255, 255, 0.88);
+        --surface-solid: #ffffff;
+        --surface-muted: #f2f2f7;
+        --ink: #111114;
+        --muted: #6e6e73;
+        --line: rgba(60, 60, 67, 0.14);
+        --blue: #007aff;
+        --green: #34c759;
+        --orange: #ff9f0a;
+        --red: #ff3b30;
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+      }
 
-* {
-  box-sizing: border-box;
-}
+      * {
+        box-sizing: border-box;
+      }
 
-body {
-  margin: 0;
-  min-height: 100dvh;
-  background:
-    radial-gradient(circle at top left, rgba(20, 184, 166, 0.18), transparent 32rem),
-    linear-gradient(180deg, #f7fffd 0%, var(--bg) 54%, #e8f1ed 100%);
-  color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
+      html {
+        background: var(--bg);
+      }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        background:
+          radial-gradient(circle at 20% -10%, rgba(0, 122, 255, 0.12), transparent 24rem),
+          linear-gradient(180deg, #fbfbfd 0%, var(--bg) 50%, #ececf1 100%);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+        letter-spacing: 0;
+      }
 
-.app-shell {
-  width: min(100%, 520px);
-  min-height: 100dvh;
-  margin: 0 auto;
-  padding: max(18px, env(safe-area-inset-top)) 16px calc(92px + env(safe-area-inset-bottom));
-}
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
 
-.topbar,
-.section-title,
-.chart-head,
-.action-row,
-.bottom-nav,
-.metrics,
-.history-item,
-.history-meta {
-  display: flex;
-  align-items: center;
-}
+      button {
+        min-height: 46px;
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        touch-action: manipulation;
+      }
 
-.topbar {
-  justify-content: space-between;
-  gap: 16px;
-  padding: 6px 2px 18px;
-}
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-height: 48px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        background: var(--surface-muted);
+        color: var(--ink);
+        padding: 12px;
+        outline: none;
+      }
 
-.eyebrow {
-  margin: 0 0 4px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
-}
+      textarea {
+        resize: vertical;
+        line-height: 1.5;
+      }
 
-h1,
-h2,
-h3,
-p {
-  margin: 0;
-}
+      input:focus,
+      select:focus,
+      textarea:focus,
+      button:focus-visible {
+        border-color: rgba(0, 122, 255, 0.55);
+        box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.14);
+      }
 
-h1 {
-  font-size: 32px;
-  line-height: 1.1;
-}
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
 
-h2 {
-  font-size: 22px;
-  line-height: 1.2;
-}
+      .app-shell {
+        width: min(100%, 430px);
+        min-height: 100dvh;
+        margin: 0 auto;
+        padding: max(16px, env(safe-area-inset-top)) 14px calc(96px + env(safe-area-inset-bottom));
+      }
 
-h3 {
-  font-size: 16px;
-}
+      .topbar,
+      .section-title,
+      .time-grid,
+      .metrics,
+      .action-row,
+      .bottom-nav,
+      .history-item,
+      .report-score,
+      .chart-head {
+        display: flex;
+        align-items: center;
+      }
 
-.score-pill {
-  min-width: 92px;
-  padding: 12px 14px;
-  border: 1px solid rgba(15, 118, 110, 0.2);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: var(--shadow);
-  text-align: center;
-}
+      .topbar {
+        justify-content: space-between;
+        gap: 14px;
+        padding: 8px 2px 18px;
+      }
 
-.score-pill span {
-  display: block;
-  font-size: 24px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-}
+      .eyebrow {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
 
-.score-pill small {
-  color: var(--muted);
-  font-size: 12px;
-}
+      h1 {
+        margin-top: 3px;
+        font-size: 34px;
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
 
-.panel {
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: var(--shadow);
-}
+      h2 {
+        font-size: 21px;
+        line-height: 1.18;
+        letter-spacing: 0;
+      }
 
-.hidden {
-  display: none;
-}
+      h3 {
+        font-size: 16px;
+        line-height: 1.25;
+      }
 
-.section-title {
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 18px;
-}
+      .score-pill {
+        min-width: 98px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: var(--shadow);
+        text-align: center;
+        backdrop-filter: blur(18px);
+      }
 
-#recordDate {
-  width: 148px;
-}
+      .score-pill strong {
+        display: block;
+        font-size: 23px;
+        line-height: 1.05;
+        font-variant-numeric: tabular-nums;
+      }
 
-.time-grid,
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
+      .score-pill span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
 
-.time-card,
-.field-block {
-  display: grid;
-  gap: 8px;
-}
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        padding: 16px;
+        backdrop-filter: blur(22px);
+      }
 
-.time-card {
-  min-height: 106px;
-  padding: 14px;
-  border: 1px solid #cfe2dc;
-  border-radius: 8px;
-  background: var(--surface-soft);
-}
+      .panel + .panel,
+      .chart-card,
+      .report-card {
+        margin-top: 12px;
+      }
 
-.time-card span,
-.field-block > label,
-.field-block > span {
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 750;
-}
+      .hidden {
+        display: none;
+      }
 
-.field-block {
-  margin-top: 14px;
-}
+      .section-title {
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
 
-input,
-select,
-textarea {
-  width: 100%;
-  min-height: 48px;
-  border: 1px solid #c8d9d4;
-  border-radius: 8px;
-  background: #fff;
-  color: var(--ink);
-  padding: 10px 12px;
-  outline: none;
-}
+      #recordDate {
+        width: 142px;
+        min-height: 44px;
+        background: #fff;
+      }
 
-textarea {
-  resize: vertical;
-  line-height: 1.5;
-}
+      .time-grid {
+        gap: 10px;
+      }
 
-input:focus,
-select:focus,
-textarea:focus,
-button:focus-visible {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
-}
+      .time-card {
+        flex: 1;
+        min-width: 0;
+        display: grid;
+        gap: 8px;
+        padding: 13px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
 
-.exercise-row {
-  display: grid;
-  grid-template-columns: 1fr 96px;
-  gap: 10px;
-}
+      .time-card span,
+      .field-block > label,
+      .field-block > span {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 750;
+      }
 
-.action-row {
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 18px;
-}
+      .field-block {
+        display: grid;
+        gap: 8px;
+        margin-top: 13px;
+      }
 
-button {
-  min-height: 48px;
-  border: 0;
-  border-radius: 8px;
-  cursor: pointer;
-  touch-action: manipulation;
-}
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
 
-.primary-btn,
-.ghost-btn {
-  padding: 0 16px;
-  font-weight: 800;
-}
+      .exercise-row {
+        display: grid;
+        grid-template-columns: 1fr 92px;
+        gap: 10px;
+      }
 
-.primary-btn {
-  flex: 1 1 150px;
-  background: var(--primary);
-  color: #fff;
-}
+      .hint {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
 
-.ghost-btn {
-  border: 1px solid #c8d9d4;
-  background: #fff;
-  color: var(--primary-dark);
-}
+      .action-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 16px;
+      }
 
-.ghost-btn.danger {
-  color: var(--danger);
-}
+      .primary-btn,
+      .ghost-btn {
+        padding: 0 15px;
+        font-weight: 800;
+      }
 
-.metrics {
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 14px;
-}
+      .primary-btn {
+        grid-column: 1 / -1;
+        background: var(--blue);
+        color: #fff;
+      }
 
-.metrics div {
-  flex: 1;
-  min-height: 78px;
-  padding: 12px;
-  border-radius: 8px;
-  background: var(--surface-soft);
-}
+      .ghost-btn {
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--blue);
+      }
 
-.metrics strong,
-.metrics span {
-  display: block;
-}
+      .ghost-btn.danger {
+        color: var(--red);
+      }
 
-.metrics strong {
-  font-size: 22px;
-  font-variant-numeric: tabular-nums;
-}
+      .report-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 15px;
+      }
 
-.metrics span {
-  margin-top: 4px;
-  color: var(--muted);
-  font-size: 13px;
-}
+      .report-score {
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
 
-.chart-card {
-  margin-top: 14px;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-}
+      .ring {
+        display: grid;
+        place-items: center;
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        background: conic-gradient(var(--blue) calc(var(--score, 0) * 1%), #e5e5ea 0);
+        color: var(--ink);
+        font-size: 18px;
+        font-weight: 850;
+        font-variant-numeric: tabular-nums;
+      }
 
-.chart-head {
-  justify-content: space-between;
-  margin-bottom: 10px;
-  color: var(--muted);
-}
+      .ring::before {
+        content: "";
+        position: absolute;
+      }
 
-.chart-head h3 {
-  color: var(--ink);
-}
+      .report-copy {
+        display: grid;
+        gap: 8px;
+        color: #2b2b30;
+        line-height: 1.55;
+        font-size: 14px;
+      }
 
-canvas {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+      .report-copy ul {
+        margin: 0;
+        padding-left: 18px;
+      }
 
-.history-list {
-  display: grid;
-  gap: 10px;
-}
+      .metrics {
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
 
-.history-item {
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-}
+      .metrics div {
+        flex: 1;
+        min-height: 76px;
+        padding: 12px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
 
-.history-item strong {
-  display: block;
-  margin-bottom: 4px;
-}
+      .metrics strong,
+      .metrics span {
+        display: block;
+      }
 
-.history-item p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.4;
-}
+      .metrics strong {
+        font-size: 20px;
+        font-variant-numeric: tabular-nums;
+      }
 
-.history-meta {
-  flex-shrink: 0;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-  color: var(--primary-dark);
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-}
+      .metrics span {
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.25;
+      }
 
-.empty {
-  padding: 32px 14px;
-  color: var(--muted);
-  text-align: center;
-}
+      .chart-card {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
 
-.bottom-nav {
-  position: fixed;
-  right: 50%;
-  bottom: 0;
-  z-index: 10;
-  width: min(100%, 520px);
-  transform: translateX(50%);
-  justify-content: space-around;
-  gap: 8px;
-  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
-  border-top: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(18px);
-}
+      .chart-head {
+        justify-content: space-between;
+        margin-bottom: 10px;
+        color: var(--muted);
+        font-size: 13px;
+      }
 
-.nav-btn {
-  flex: 1;
-  display: grid;
-  place-items: center;
-  gap: 3px;
-  min-height: 58px;
-  background: transparent;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 750;
-}
+      canvas {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
 
-.nav-btn.active {
-  background: #e1f3ef;
-  color: var(--primary-dark);
-}
+      .history-list {
+        display: grid;
+        gap: 10px;
+      }
 
-.nav-btn svg {
-  width: 22px;
-  height: 22px;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2;
-}
+      .history-item {
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
 
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: calc(88px + env(safe-area-inset-bottom));
-  z-index: 20;
-  max-width: min(90vw, 380px);
-  padding: 12px 16px;
-  border-radius: 8px;
-  background: #14211f;
-  color: #fff;
-  opacity: 0;
-  transform: translate(-50%, 10px);
-  transition: opacity 180ms ease, transform 180ms ease;
-  pointer-events: none;
-}
+      .history-item strong {
+        display: block;
+        margin-bottom: 5px;
+      }
 
-.toast.show {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
+      .history-item p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+      }
 
-@media (max-width: 380px) {
-  .app-shell {
-    padding-inline: 12px;
-  }
+      .history-meta {
+        flex-shrink: 0;
+        display: grid;
+        justify-items: end;
+        gap: 4px;
+        color: var(--blue);
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+      }
 
-  .panel {
-    padding: 14px;
-  }
+      .empty {
+        padding: 30px 14px;
+        color: var(--muted);
+        text-align: center;
+      }
 
-  .time-grid,
-  .two-col,
-  .exercise-row {
-    grid-template-columns: 1fr;
-  }
+      .bottom-nav {
+        position: fixed;
+        right: 50%;
+        bottom: 0;
+        z-index: 10;
+        width: min(100%, 430px);
+        transform: translateX(50%);
+        justify-content: space-around;
+        gap: 8px;
+        padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--line);
+        background: rgba(251, 251, 253, 0.82);
+        backdrop-filter: blur(22px);
+      }
 
-  #recordDate {
-    width: 132px;
-  }
-}
+      .nav-btn {
+        flex: 1;
+        display: grid;
+        place-items: center;
+        gap: 3px;
+        min-height: 58px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 750;
+      }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition: none !important;
-  }
-}
+      .nav-btn.active {
+        background: rgba(0, 122, 255, 0.12);
+        color: var(--blue);
+      }
 
+      .nav-btn svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2;
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(88px + env(safe-area-inset-bottom));
+        z-index: 20;
+        max-width: min(90vw, 360px);
+        padding: 12px 16px;
+        border-radius: 8px;
+        background: rgba(25, 25, 28, 0.92);
+        color: #fff;
+        opacity: 0;
+        transform: translate(-50%, 10px);
+        transition: opacity 180ms ease, transform 180ms ease;
+        pointer-events: none;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      @media (max-width: 380px) {
+        .app-shell {
+          padding-inline: 11px;
+        }
+
+        .panel {
+          padding: 14px;
+        }
+
+        .time-grid,
+        .two-col,
+        .exercise-row {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        #recordDate {
+          width: 132px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition: none !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -439,15 +513,15 @@ canvas {
           <h1>眠迹</h1>
         </div>
         <div class="score-pill">
-          <span id="sleepDuration">--</span>
-          <small>睡眠</small>
+          <strong id="sleepDuration">--</strong>
+          <span>本次睡眠</span>
         </div>
       </section>
 
-      <section class="panel today-panel" data-view="today">
+      <section class="panel" data-view="today">
         <div class="section-title">
           <div>
-            <p class="eyebrow">今日记录</p>
+            <p class="eyebrow">睡眠记录</p>
             <h2 id="recordDateTitle">今天</h2>
           </div>
           <input id="recordDate" type="date" aria-label="选择日期" />
@@ -464,34 +538,30 @@ canvas {
           </label>
         </div>
 
-        <div class="field-block">
-          <label for="mood">心情</label>
-          <select id="mood">
-            <option value="">未选择</option>
-            <option>很好</option>
-            <option>平静</option>
-            <option>一般</option>
-            <option>疲惫</option>
-            <option>焦虑</option>
-          </select>
-        </div>
-
         <div class="two-col">
           <label class="field-block">
-            <span>咖啡</span>
-            <input id="coffee" type="number" min="0" step="0.5" placeholder="杯数" />
+            <span>心情</span>
+            <select id="mood">
+              <option value="">未选择</option>
+              <option>很好</option>
+              <option>平静</option>
+              <option>一般</option>
+              <option>疲惫</option>
+              <option>焦虑</option>
+            </select>
           </label>
           <label class="field-block">
-            <span>酒精</span>
-            <input id="alcohol" type="number" min="0" step="0.5" placeholder="杯数" />
+            <span>咖啡因</span>
+            <input id="caffeine" type="number" min="0" step="0.01" placeholder="克" inputmode="decimal" />
           </label>
         </div>
+        <p class="hint">例：一杯美式约 0.08-0.15g 咖啡因。</p>
 
         <div class="field-block">
           <label for="exerciseType">运动</label>
           <div class="exercise-row">
-            <input id="exerciseType" type="text" placeholder="例如：散步、跑步、力量训练" />
-            <input id="exerciseMinutes" type="number" min="0" step="5" placeholder="分钟" />
+            <input id="exerciseType" type="text" placeholder="散步、跑步、力量训练" />
+            <input id="exerciseMinutes" type="number" min="0" step="5" placeholder="分钟" inputmode="numeric" />
           </div>
         </div>
 
@@ -501,16 +571,18 @@ canvas {
         </label>
 
         <div class="action-row">
-          <button class="primary-btn" id="saveBtn" type="button">保存记录</button>
+          <button class="primary-btn" id="saveBtn" type="button">保存并生成报告</button>
           <button class="ghost-btn" id="quickSleepBtn" type="button">现在入睡</button>
           <button class="ghost-btn" id="quickWakeBtn" type="button">现在起床</button>
         </div>
       </section>
 
-      <section class="panel trend-panel hidden" data-view="trend">
+      <section class="report-card" id="reportCard" aria-label="睡眠报告"></section>
+
+      <section class="panel hidden" data-view="trend">
         <div class="section-title">
           <div>
-            <p class="eyebrow">健康图表</p>
+            <p class="eyebrow">健康趋势</p>
             <h2>最近 14 天</h2>
           </div>
           <button class="ghost-btn danger" id="clearBtn" type="button">清空</button>
@@ -522,8 +594,8 @@ canvas {
             <span>平均睡眠</span>
           </div>
           <div>
-            <strong id="avgCoffee">--</strong>
-            <span>平均咖啡</span>
+            <strong id="avgCaffeine">--</strong>
+            <span>平均咖啡因</span>
           </div>
           <div>
             <strong id="exerciseDays">--</strong>
@@ -541,14 +613,14 @@ canvas {
 
         <article class="chart-card">
           <div class="chart-head">
-            <h3>咖啡与酒精</h3>
-            <span>杯</span>
+            <h3>咖啡因摄入</h3>
+            <span>克</span>
           </div>
-          <canvas id="intakeChart" width="640" height="300"></canvas>
+          <canvas id="caffeineChart" width="640" height="300"></canvas>
         </article>
       </section>
 
-      <section class="panel history-panel hidden" data-view="history">
+      <section class="panel hidden" data-view="history">
         <div class="section-title">
           <div>
             <p class="eyebrow">历史记录</p>
@@ -575,339 +647,411 @@ canvas {
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
     <script>
-const STORAGE_KEY = "mianji.sleep.records.v1";
-const today = new Date();
-const dateInput = document.querySelector("#recordDate");
-const recordDateTitle = document.querySelector("#recordDateTitle");
-const todayLabel = document.querySelector("#todayLabel");
-const sleepInput = document.querySelector("#sleepTime");
-const wakeInput = document.querySelector("#wakeTime");
-const moodInput = document.querySelector("#mood");
-const coffeeInput = document.querySelector("#coffee");
-const alcoholInput = document.querySelector("#alcohol");
-const exerciseTypeInput = document.querySelector("#exerciseType");
-const exerciseMinutesInput = document.querySelector("#exerciseMinutes");
-const notesInput = document.querySelector("#notes");
-const durationEl = document.querySelector("#sleepDuration");
-const toastEl = document.querySelector("#toast");
-const historyList = document.querySelector("#historyList");
+      const STORAGE_KEY = "mianji.sleep.records.v2";
+      const LEGACY_KEY = "mianji.sleep.records.v1";
+      const today = new Date();
+      const dateInput = document.querySelector("#recordDate");
+      const recordDateTitle = document.querySelector("#recordDateTitle");
+      const todayLabel = document.querySelector("#todayLabel");
+      const sleepInput = document.querySelector("#sleepTime");
+      const wakeInput = document.querySelector("#wakeTime");
+      const moodInput = document.querySelector("#mood");
+      const caffeineInput = document.querySelector("#caffeine");
+      const exerciseTypeInput = document.querySelector("#exerciseType");
+      const exerciseMinutesInput = document.querySelector("#exerciseMinutes");
+      const notesInput = document.querySelector("#notes");
+      const durationEl = document.querySelector("#sleepDuration");
+      const toastEl = document.querySelector("#toast");
+      const historyList = document.querySelector("#historyList");
+      const reportCard = document.querySelector("#reportCard");
 
-const moodScore = {
-  很好: 5,
-  平静: 4,
-  一般: 3,
-  疲惫: 2,
-  焦虑: 1,
-};
+      const moodScore = {
+        很好: 5,
+        平静: 4,
+        一般: 3,
+        疲惫: 2,
+        焦虑: 1,
+      };
 
-let records = loadRecords();
+      let records = loadRecords();
 
-function toDateKey(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
+      function toDateKey(date) {
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      }
 
-function formatDay(dateKey) {
-  const date = new Date(`${dateKey}T12:00:00`);
-  return new Intl.DateTimeFormat("zh-CN", {
-    month: "long",
-    day: "numeric",
-    weekday: "short",
-  }).format(date);
-}
+      function formatDay(dateKey) {
+        const date = new Date(`${dateKey}T12:00:00`);
+        return new Intl.DateTimeFormat("zh-CN", {
+          month: "long",
+          day: "numeric",
+          weekday: "short",
+        }).format(date);
+      }
 
-function loadRecords() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-  } catch {
-    return {};
-  }
-}
+      function loadRecords() {
+        try {
+          const current = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          if (current) return current;
+          const legacy = JSON.parse(localStorage.getItem(LEGACY_KEY)) || {};
+          const migrated = {};
+          Object.entries(legacy).forEach(([key, record]) => {
+            migrated[key] = {
+              ...record,
+              caffeine: record.caffeine ?? cupsToCaffeine(record.coffee),
+            };
+          });
+          if (Object.keys(migrated).length) localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+          return migrated;
+        } catch {
+          return {};
+        }
+      }
 
-function persistRecords() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-}
+      function persistRecords() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      }
 
-function nowTime() {
-  const date = new Date();
-  return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
-}
+      function cupsToCaffeine(cups) {
+        const value = Number(cups || 0);
+        return value ? Number((value * 0.1).toFixed(2)) : 0;
+      }
 
-function toMinutes(value) {
-  if (!value) return null;
-  const [hours, minutes] = value.split(":").map(Number);
-  return hours * 60 + minutes;
-}
+      function nowTime() {
+        const date = new Date();
+        return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+      }
 
-function sleepHours(sleepTime, wakeTime) {
-  const start = toMinutes(sleepTime);
-  const end = toMinutes(wakeTime);
-  if (start === null || end === null) return null;
-  const minutes = end >= start ? end - start : 1440 - start + end;
-  return minutes / 60;
-}
+      function toMinutes(value) {
+        if (!value) return null;
+        const [hours, minutes] = value.split(":").map(Number);
+        return hours * 60 + minutes;
+      }
 
-function formatHours(value) {
-  if (value === null || Number.isNaN(value)) return "--";
-  const hours = Math.floor(value);
-  const minutes = Math.round((value - hours) * 60);
-  return `${hours}时${minutes ? `${minutes}分` : ""}`;
-}
+      function sleepHours(sleepTime, wakeTime) {
+        const start = toMinutes(sleepTime);
+        const end = toMinutes(wakeTime);
+        if (start === null || end === null) return null;
+        const minutes = end >= start ? end - start : 1440 - start + end;
+        return minutes / 60;
+      }
 
-function selectedRecord() {
-  return records[dateInput.value] || {};
-}
+      function formatHours(value) {
+        if (value === null || Number.isNaN(value)) return "--";
+        const hours = Math.floor(value);
+        const minutes = Math.round((value - hours) * 60);
+        return `${hours}时${minutes ? `${minutes}分` : ""}`;
+      }
 
-function fillForm(dateKey) {
-  const record = records[dateKey] || {};
-  recordDateTitle.textContent = formatDay(dateKey);
-  sleepInput.value = record.sleepTime || "";
-  wakeInput.value = record.wakeTime || "";
-  moodInput.value = record.mood || "";
-  coffeeInput.value = record.coffee ?? "";
-  alcoholInput.value = record.alcohol ?? "";
-  exerciseTypeInput.value = record.exerciseType || "";
-  exerciseMinutesInput.value = record.exerciseMinutes ?? "";
-  notesInput.value = record.notes || "";
-  updateDuration();
-}
+      function numberOrZero(value) {
+        const parsed = Number(value);
+        return Number.isFinite(parsed) ? parsed : 0;
+      }
 
-function collectForm() {
-  return {
-    date: dateInput.value,
-    sleepTime: sleepInput.value,
-    wakeTime: wakeInput.value,
-    mood: moodInput.value,
-    coffee: numberOrZero(coffeeInput.value),
-    alcohol: numberOrZero(alcoholInput.value),
-    exerciseType: exerciseTypeInput.value.trim(),
-    exerciseMinutes: numberOrZero(exerciseMinutesInput.value),
-    notes: notesInput.value.trim(),
-    updatedAt: new Date().toISOString(),
-  };
-}
+      function fillForm(dateKey) {
+        const record = records[dateKey] || {};
+        recordDateTitle.textContent = formatDay(dateKey);
+        sleepInput.value = record.sleepTime || "";
+        wakeInput.value = record.wakeTime || "";
+        moodInput.value = record.mood || "";
+        caffeineInput.value = record.caffeine ?? "";
+        exerciseTypeInput.value = record.exerciseType || "";
+        exerciseMinutesInput.value = record.exerciseMinutes ?? "";
+        notesInput.value = record.notes || "";
+        updateDuration();
+        updateReport();
+      }
 
-function numberOrZero(value) {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : 0;
-}
+      function collectForm() {
+        return {
+          date: dateInput.value,
+          sleepTime: sleepInput.value,
+          wakeTime: wakeInput.value,
+          mood: moodInput.value,
+          caffeine: numberOrZero(caffeineInput.value),
+          exerciseType: exerciseTypeInput.value.trim(),
+          exerciseMinutes: numberOrZero(exerciseMinutesInput.value),
+          notes: notesInput.value.trim(),
+          updatedAt: new Date().toISOString(),
+        };
+      }
 
-function updateDuration() {
-  durationEl.textContent = formatHours(sleepHours(sleepInput.value, wakeInput.value));
-}
+      function updateDuration() {
+        durationEl.textContent = formatHours(sleepHours(sleepInput.value, wakeInput.value));
+      }
 
-function saveRecord(quiet = false) {
-  const record = collectForm();
-  if (!record.sleepTime && !record.wakeTime && !record.mood && !record.notes && !record.coffee && !record.alcohol && !record.exerciseType && !record.exerciseMinutes) {
-    showToast("还没有填写内容");
-    return;
-  }
-  records[record.date] = record;
-  persistRecords();
-  updateAllViews();
-  if (!quiet) showToast("已保存");
-}
+      function saveRecord(quiet = false) {
+        const record = collectForm();
+        if (!record.sleepTime && !record.wakeTime && !record.mood && !record.notes && !record.caffeine && !record.exerciseType && !record.exerciseMinutes) {
+          showToast("还没有填写内容");
+          return;
+        }
+        records[record.date] = record;
+        persistRecords();
+        updateAllViews();
+        if (!quiet) showToast("已生成睡眠报告");
+      }
 
-function showToast(message) {
-  toastEl.textContent = message;
-  toastEl.classList.add("show");
-  window.clearTimeout(showToast.timer);
-  showToast.timer = window.setTimeout(() => toastEl.classList.remove("show"), 1800);
-}
+      function showToast(message) {
+        toastEl.textContent = message;
+        toastEl.classList.add("show");
+        window.clearTimeout(showToast.timer);
+        showToast.timer = window.setTimeout(() => toastEl.classList.remove("show"), 1800);
+      }
 
-function recentDays(count) {
-  return Array.from({ length: count }, (_, index) => {
-    const date = new Date();
-    date.setDate(today.getDate() - (count - 1 - index));
-    return toDateKey(date);
-  });
-}
+      function recentDays(count) {
+        return Array.from({ length: count }, (_, index) => {
+          const date = new Date();
+          date.setDate(today.getDate() - (count - 1 - index));
+          return toDateKey(date);
+        });
+      }
 
-function updateStats() {
-  const days = recentDays(14);
-  const recentRecords = days.map((day) => records[day]).filter(Boolean);
-  const durations = recentRecords
-    .map((record) => sleepHours(record.sleepTime, record.wakeTime))
-    .filter((value) => value !== null);
-  const coffeeValues = recentRecords.map((record) => Number(record.coffee || 0));
-  const avgSleep = durations.length ? durations.reduce((sum, value) => sum + value, 0) / durations.length : null;
-  const avgCoffee = coffeeValues.length ? coffeeValues.reduce((sum, value) => sum + value, 0) / coffeeValues.length : null;
-  const exerciseDays = recentRecords.filter((record) => Number(record.exerciseMinutes || 0) > 0 || record.exerciseType).length;
+      function buildReport(record) {
+        const hours = sleepHours(record.sleepTime, record.wakeTime);
+        if (hours === null) {
+          return {
+            score: 0,
+            title: "等待完整记录",
+            summary: "填进入睡和起床时间后，我会根据睡眠时长、心情、咖啡因和运动生成一份简短报告。",
+            tips: ["今晚先把时间记录完整，连续记录 7 天后趋势会更有参考价值。"],
+          };
+        }
 
-  document.querySelector("#avgSleep").textContent = avgSleep === null ? "--" : formatHours(avgSleep);
-  document.querySelector("#avgCoffee").textContent = avgCoffee === null ? "--" : `${avgCoffee.toFixed(1)}杯`;
-  document.querySelector("#exerciseDays").textContent = `${exerciseDays}天`;
-}
+        let score = 70;
+        const tips = [];
+        if (hours >= 7 && hours <= 9) score += 14;
+        if (hours < 6) {
+          score -= 18;
+          tips.push("睡眠时长偏短，今晚可以把上床时间提前 30 分钟。");
+        } else if (hours > 9.5) {
+          score -= 6;
+          tips.push("睡眠时长偏长，如果醒来仍疲惫，可以观察是否睡眠质量不稳。");
+        } else {
+          tips.push("睡眠时长比较理想，建议保持相近的入睡和起床节奏。");
+        }
 
-function drawLineChart(canvas, series, options) {
-  const ctx = canvas.getContext("2d");
-  const width = canvas.width;
-  const height = canvas.height;
-  const pad = 34;
-  ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, width, height);
+        const caffeine = Number(record.caffeine || 0);
+        if (caffeine > 0.2) {
+          score -= 12;
+          tips.push("咖啡因超过 0.2g，尽量把咖啡安排在下午早些时候之前。");
+        } else if (caffeine > 0.08) {
+          score -= 5;
+          tips.push("咖啡因摄入不算高，但如果入睡困难，可以继续下调一点。");
+        } else {
+          score += 4;
+          tips.push("咖啡因压力较低，对入睡更友好。");
+        }
 
-  const maxValue = Math.max(options.max || 0, ...series.flatMap((item) => item.values.map((point) => point.value || 0)), 1);
-  ctx.strokeStyle = "#d9e7e2";
-  ctx.lineWidth = 1;
-  ctx.fillStyle = "#60706c";
-  ctx.font = "22px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        const exerciseMinutes = Number(record.exerciseMinutes || 0);
+        if (exerciseMinutes >= 20 && exerciseMinutes <= 80) {
+          score += 8;
+          tips.push(`${record.exerciseType || "运动"} ${exerciseMinutes} 分钟是加分项，规律运动通常有助于睡眠。`);
+        } else if (exerciseMinutes > 80) {
+          score -= 4;
+          tips.push("运动量较大，尽量避免临睡前进行高强度训练。");
+        } else if (exerciseMinutes === 0) {
+          tips.push("明天可以加入 15-30 分钟轻运动，比如散步。");
+        }
 
-  for (let i = 0; i <= 4; i += 1) {
-    const y = pad + ((height - pad * 2) / 4) * i;
-    ctx.beginPath();
-    ctx.moveTo(pad, y);
-    ctx.lineTo(width - 12, y);
-    ctx.stroke();
-  }
+        if (record.mood) {
+          const moodValue = moodScore[record.mood] || 3;
+          score += (moodValue - 3) * 4;
+          if (moodValue <= 2) tips.push("心情状态偏紧，睡前可以留 10 分钟做放松或写下明天要处理的事。");
+        }
 
-  series.forEach((item) => {
-    ctx.strokeStyle = item.color;
-    ctx.fillStyle = item.color;
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    item.values.forEach((point, index) => {
-      const x = pad + ((width - pad - 18) / Math.max(item.values.length - 1, 1)) * index;
-      const y = height - pad - ((point.value || 0) / maxValue) * (height - pad * 2);
-      if (index === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    });
-    ctx.stroke();
-    item.values.forEach((point, index) => {
-      const x = pad + ((width - pad - 18) / Math.max(item.values.length - 1, 1)) * index;
-      const y = height - pad - ((point.value || 0) / maxValue) * (height - pad * 2);
-      ctx.beginPath();
-      ctx.arc(x, y, 5, 0, Math.PI * 2);
-      ctx.fill();
-    });
-  });
+        score = Math.max(15, Math.min(100, Math.round(score)));
+        const title = score >= 85 ? "恢复感很好" : score >= 70 ? "整体稳定" : score >= 55 ? "有优化空间" : "需要温和调整";
+        const exerciseText = record.exerciseType
+          ? `${record.exerciseType}${exerciseMinutes ? ` ${exerciseMinutes} 分钟` : ""}`
+          : "未记录运动";
+        const summary = `本次睡眠 ${formatHours(hours)}，咖啡因 ${caffeine.toFixed(2)}g，${exerciseText}，心情${record.mood || "未选择"}。`;
+        return { score, title, summary, tips: tips.slice(0, 3) };
+      }
 
-  ctx.fillStyle = "#60706c";
-  ctx.font = "20px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
-  ctx.textAlign = "center";
-  options.labels.forEach((label, index) => {
-    if (index % 3 !== 0 && index !== options.labels.length - 1) return;
-    const rawX = pad + ((width - pad - 18) / Math.max(options.labels.length - 1, 1)) * index;
-    const x = Math.min(Math.max(rawX, 34), width - 34);
-    ctx.fillText(label, x, height - 8);
-  });
-  ctx.textAlign = "start";
-}
-
-function updateCharts() {
-  const days = recentDays(14);
-  const labels = days.map((day) => day.slice(5).replace("-", "/"));
-  const sleepValues = days.map((day) => ({
-    value: sleepHours(records[day]?.sleepTime, records[day]?.wakeTime) || 0,
-  }));
-  const coffeeValues = days.map((day) => ({ value: Number(records[day]?.coffee || 0) }));
-  const alcoholValues = days.map((day) => ({ value: Number(records[day]?.alcohol || 0) }));
-
-  drawLineChart(document.querySelector("#sleepChart"), [{ color: "#0f766e", values: sleepValues }], {
-    labels,
-    max: 10,
-  });
-  drawLineChart(
-    document.querySelector("#intakeChart"),
-    [
-      { color: "#c2410c", values: coffeeValues },
-      { color: "#2563eb", values: alcoholValues },
-    ],
-    { labels, max: 5 },
-  );
-}
-
-function updateHistory() {
-  const items = Object.values(records).sort((a, b) => b.date.localeCompare(a.date));
-  if (!items.length) {
-    historyList.innerHTML = `<div class="empty">还没有记录。今天先填一条就好。</div>`;
-    return;
-  }
-
-  historyList.innerHTML = items
-    .map((record) => {
-      const duration = formatHours(sleepHours(record.sleepTime, record.wakeTime));
-      const extras = [
-        record.mood ? `心情：${record.mood}` : "",
-        record.coffee ? `咖啡：${record.coffee}杯` : "",
-        record.alcohol ? `酒精：${record.alcohol}杯` : "",
-        record.exerciseType ? `运动：${record.exerciseType}${record.exerciseMinutes ? ` ${record.exerciseMinutes}分钟` : ""}` : "",
-      ]
-        .filter(Boolean)
-        .join(" · ");
-      return `
-        <article class="history-item">
-          <div>
-            <strong>${formatDay(record.date)}</strong>
-            <p>${extras || "只记录了睡眠时间"}</p>
+      function updateReport() {
+        const record = records[dateInput.value] || collectForm();
+        const report = buildReport(record);
+        reportCard.innerHTML = `
+          <div class="report-score">
+            <div>
+              <p class="eyebrow">睡眠报告</p>
+              <h2>${report.title}</h2>
+            </div>
+            <div class="ring" style="--score: ${report.score}">${report.score || "--"}</div>
           </div>
-          <div class="history-meta">
-            <span>${duration}</span>
-            <small>${record.sleepTime || "--"} - ${record.wakeTime || "--"}</small>
+          <div class="report-copy">
+            <p>${report.summary}</p>
+            <ul>${report.tips.map((tip) => `<li>${tip}</li>`).join("")}</ul>
           </div>
-        </article>
-      `;
-    })
-    .join("");
-}
+        `;
+      }
 
-function updateAllViews() {
-  updateDuration();
-  updateStats();
-  updateCharts();
-  updateHistory();
-}
+      function updateStats() {
+        const days = recentDays(14);
+        const recentRecords = days.map((day) => records[day]).filter(Boolean);
+        const durations = recentRecords.map((record) => sleepHours(record.sleepTime, record.wakeTime)).filter((value) => value !== null);
+        const caffeineValues = recentRecords.map((record) => Number(record.caffeine || 0));
+        const avgSleep = durations.length ? durations.reduce((sum, value) => sum + value, 0) / durations.length : null;
+        const avgCaffeine = caffeineValues.length ? caffeineValues.reduce((sum, value) => sum + value, 0) / caffeineValues.length : null;
+        const exerciseDays = recentRecords.filter((record) => Number(record.exerciseMinutes || 0) > 0 || record.exerciseType).length;
+        document.querySelector("#avgSleep").textContent = avgSleep === null ? "--" : formatHours(avgSleep);
+        document.querySelector("#avgCaffeine").textContent = avgCaffeine === null ? "--" : `${avgCaffeine.toFixed(2)}g`;
+        document.querySelector("#exerciseDays").textContent = `${exerciseDays}天`;
+      }
 
-document.querySelector("#saveBtn").addEventListener("click", () => saveRecord());
-document.querySelector("#quickSleepBtn").addEventListener("click", () => {
-  sleepInput.value = nowTime();
-  saveRecord(true);
-  showToast("已填入当前入睡时间");
-});
-document.querySelector("#quickWakeBtn").addEventListener("click", () => {
-  wakeInput.value = nowTime();
-  saveRecord(true);
-  showToast("已填入当前起床时间");
-});
+      function drawLineChart(canvas, series, options) {
+        const ctx = canvas.getContext("2d");
+        const width = canvas.width;
+        const height = canvas.height;
+        const pad = 34;
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+        const maxValue = Math.max(options.max || 0, ...series.flatMap((item) => item.values.map((point) => point.value || 0)), 1);
+        ctx.strokeStyle = "#e5e5ea";
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 4; i += 1) {
+          const y = pad + ((height - pad * 2) / 4) * i;
+          ctx.beginPath();
+          ctx.moveTo(pad, y);
+          ctx.lineTo(width - 12, y);
+          ctx.stroke();
+        }
+        series.forEach((item) => {
+          ctx.strokeStyle = item.color;
+          ctx.fillStyle = item.color;
+          ctx.lineWidth = 4;
+          ctx.beginPath();
+          item.values.forEach((point, index) => {
+            const x = pad + ((width - pad - 18) / Math.max(item.values.length - 1, 1)) * index;
+            const y = height - pad - ((point.value || 0) / maxValue) * (height - pad * 2);
+            if (index === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.stroke();
+          item.values.forEach((point, index) => {
+            const x = pad + ((width - pad - 18) / Math.max(item.values.length - 1, 1)) * index;
+            const y = height - pad - ((point.value || 0) / maxValue) * (height - pad * 2);
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fill();
+          });
+        });
+        ctx.fillStyle = "#6e6e73";
+        ctx.font = "20px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+        ctx.textAlign = "center";
+        options.labels.forEach((label, index) => {
+          if (index % 3 !== 0 && index !== options.labels.length - 1) return;
+          const rawX = pad + ((width - pad - 18) / Math.max(options.labels.length - 1, 1)) * index;
+          const x = Math.min(Math.max(rawX, 34), width - 34);
+          ctx.fillText(label, x, height - 8);
+        });
+        ctx.textAlign = "start";
+      }
 
-[sleepInput, wakeInput].forEach((input) => input.addEventListener("input", updateDuration));
+      function updateCharts() {
+        const days = recentDays(14);
+        const labels = days.map((day) => day.slice(5).replace("-", "/"));
+        const sleepValues = days.map((day) => ({ value: sleepHours(records[day]?.sleepTime, records[day]?.wakeTime) || 0 }));
+        const caffeineValues = days.map((day) => ({ value: Number(records[day]?.caffeine || 0) }));
+        drawLineChart(document.querySelector("#sleepChart"), [{ color: "#007aff", values: sleepValues }], { labels, max: 10 });
+        drawLineChart(document.querySelector("#caffeineChart"), [{ color: "#ff9f0a", values: caffeineValues }], { labels, max: 0.4 });
+      }
 
-dateInput.addEventListener("change", () => fillForm(dateInput.value));
+      function updateHistory() {
+        const items = Object.values(records).sort((a, b) => b.date.localeCompare(a.date));
+        if (!items.length) {
+          historyList.innerHTML = `<div class="empty">还没有记录。今天先填一条就好。</div>`;
+          return;
+        }
+        historyList.innerHTML = items
+          .map((record) => {
+            const duration = formatHours(sleepHours(record.sleepTime, record.wakeTime));
+            const report = buildReport(record);
+            const extras = [
+              record.mood ? `心情：${record.mood}` : "",
+              record.caffeine ? `咖啡因：${Number(record.caffeine).toFixed(2)}g` : "",
+              record.exerciseType ? `运动：${record.exerciseType}${record.exerciseMinutes ? ` ${record.exerciseMinutes}分钟` : ""}` : "",
+              `评分：${report.score}`,
+            ]
+              .filter(Boolean)
+              .join(" · ");
+            return `
+              <article class="history-item">
+                <div>
+                  <strong>${formatDay(record.date)}</strong>
+                  <p>${extras}</p>
+                </div>
+                <div class="history-meta">
+                  <span>${duration}</span>
+                  <small>${record.sleepTime || "--"} - ${record.wakeTime || "--"}</small>
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+      }
 
-document.querySelectorAll(".nav-btn").forEach((button) => {
-  button.addEventListener("click", () => {
-    const target = button.dataset.target;
-    document.querySelectorAll(".panel").forEach((panel) => panel.classList.toggle("hidden", panel.dataset.view !== target));
-    document.querySelectorAll(".nav-btn").forEach((navButton) => navButton.classList.toggle("active", navButton === button));
-    updateAllViews();
-  });
-});
+      function updateAllViews() {
+        updateDuration();
+        updateReport();
+        updateStats();
+        updateCharts();
+        updateHistory();
+      }
 
-document.querySelector("#clearBtn").addEventListener("click", () => {
-  const confirmed = window.confirm("确认清空所有记录吗？这个操作不能恢复。");
-  if (!confirmed) return;
-  records = {};
-  persistRecords();
-  fillForm(dateInput.value);
-  updateAllViews();
-  showToast("已清空");
-});
+      document.querySelector("#saveBtn").addEventListener("click", () => saveRecord());
+      document.querySelector("#quickSleepBtn").addEventListener("click", () => {
+        sleepInput.value = nowTime();
+        saveRecord(true);
+        showToast("已填入当前入睡时间");
+      });
+      document.querySelector("#quickWakeBtn").addEventListener("click", () => {
+        wakeInput.value = nowTime();
+        saveRecord(true);
+        showToast("已填入当前起床时间");
+      });
 
-dateInput.value = toDateKey(today);
-todayLabel.textContent = new Intl.DateTimeFormat("zh-CN", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  weekday: "long",
-}).format(today);
-fillForm(dateInput.value);
-updateAllViews();
+      [sleepInput, wakeInput, moodInput, caffeineInput, exerciseTypeInput, exerciseMinutesInput].forEach((input) => {
+        input.addEventListener("input", () => {
+          updateDuration();
+          updateReport();
+        });
+      });
 
+      dateInput.addEventListener("change", () => fillForm(dateInput.value));
 
+      document.querySelectorAll(".nav-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.target;
+          document.querySelectorAll(".panel").forEach((panel) => panel.classList.toggle("hidden", panel.dataset.view !== target));
+          reportCard.classList.toggle("hidden", target !== "today");
+          document.querySelectorAll(".nav-btn").forEach((navButton) => navButton.classList.toggle("active", navButton === button));
+          updateAllViews();
+        });
+      });
+
+      document.querySelector("#clearBtn").addEventListener("click", () => {
+        const confirmed = window.confirm("确认清空所有记录吗？这个操作不能恢复。");
+        if (!confirmed) return;
+        records = {};
+        persistRecords();
+        fillForm(dateInput.value);
+        updateAllViews();
+        showToast("已清空");
+      });
+
+      dateInput.value = toDateKey(today);
+      todayLabel.textContent = new Intl.DateTimeFormat("zh-CN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long",
+      }).format(today);
+      fillForm(dateInput.value);
+      updateAllViews();
     </script>
   </body>
 </html>
