@@ -269,6 +269,59 @@
         line-height: 1.45;
       }
 
+      .delay-card {
+        margin-top: 13px;
+        padding: 12px;
+        border: 1px solid rgba(0, 122, 255, 0.14);
+        border-radius: 8px;
+        background: linear-gradient(180deg, rgba(245, 250, 255, 0.96), rgba(255, 255, 255, 0.9));
+      }
+
+      .delay-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .delay-head span {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .delay-head small {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .delay-options {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .delay-btn,
+      .custom-delay button {
+        min-height: 42px;
+        border: 1px solid rgba(0, 122, 255, 0.18);
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--blue);
+        font-weight: 800;
+      }
+
+      .custom-delay {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 72px;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .custom-delay input {
+        min-height: 42px;
+      }
+
       .action-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -514,6 +567,10 @@
           grid-template-columns: 1fr;
         }
 
+        .delay-options {
+          grid-template-columns: 1fr;
+        }
+
         #recordDate {
           width: 132px;
         }
@@ -560,6 +617,22 @@
             <span>起床</span>
             <input id="wakeTime" type="time" />
           </label>
+        </div>
+
+        <div class="delay-card" aria-label="准备睡觉">
+          <div class="delay-head">
+            <span>准备睡觉</span>
+            <small>按预计入睡时间填写</small>
+          </div>
+          <div class="delay-options">
+            <button class="delay-btn" type="button" data-delay="10">10 分钟后</button>
+            <button class="delay-btn" type="button" data-delay="15">15 分钟后</button>
+            <button class="delay-btn" type="button" data-delay="20">20 分钟后</button>
+          </div>
+          <div class="custom-delay">
+            <input id="customDelay" type="number" min="1" max="180" step="1" placeholder="自定分钟" inputmode="numeric" />
+            <button id="customDelayBtn" type="button">填写</button>
+          </div>
         </div>
 
         <div class="two-col">
@@ -687,6 +760,7 @@
       const exerciseTypeInput = document.querySelector("#exerciseType");
       const exerciseMinutesInput = document.querySelector("#exerciseMinutes");
       const notesInput = document.querySelector("#notes");
+      const customDelayInput = document.querySelector("#customDelay");
       const durationEl = document.querySelector("#sleepDuration");
       const toastEl = document.querySelector("#toast");
       const historyList = document.querySelector("#historyList");
@@ -766,6 +840,12 @@
         return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
       }
 
+      function timeAfterMinutes(minutes) {
+        const date = new Date();
+        date.setMinutes(date.getMinutes() + minutes);
+        return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+      }
+
       function toMinutes(value) {
         if (!value) return null;
         const [hours, minutes] = value.split(":").map(Number);
@@ -787,9 +867,10 @@
         return `${hours}时${minutes ? `${minutes}分` : ""}`;
       }
 
-      function numberOrZero(value) {
+      function numberOrBlank(value) {
+        if (value === "") return "";
         const parsed = Number(value);
-        return Number.isFinite(parsed) ? parsed : 0;
+        return Number.isFinite(parsed) ? parsed : "";
       }
 
       function fillForm(dateKey) {
@@ -812,9 +893,9 @@
           sleepTime: sleepInput.value,
           wakeTime: wakeInput.value,
           mood: moodInput.value,
-          caffeine: numberOrZero(caffeineInput.value),
+          caffeine: numberOrBlank(caffeineInput.value),
           exerciseType: exerciseTypeInput.value.trim(),
-          exerciseMinutes: numberOrZero(exerciseMinutesInput.value),
+          exerciseMinutes: numberOrBlank(exerciseMinutesInput.value),
           notes: notesInput.value.trim(),
           updatedAt: new Date().toISOString(),
         };
@@ -834,6 +915,18 @@
         persistRecords();
         updateAllViews();
         if (!quiet) showToast("已生成睡眠报告");
+      }
+
+      function setDelayedSleep(minutes) {
+        const rawDelay = Number(minutes);
+        if (!Number.isFinite(rawDelay) || rawDelay <= 0) {
+          showToast("请输入有效分钟数");
+          return;
+        }
+        const delay = Math.max(1, Math.min(180, Math.round(rawDelay)));
+        sleepInput.value = timeAfterMinutes(delay);
+        saveRecord(true);
+        showToast(`已填入 ${delay} 分钟后的入睡时间`);
       }
 
       function showToast(message) {
@@ -1056,6 +1149,12 @@
         saveRecord(true);
         showToast("已填入当前起床时间");
       });
+
+      document.querySelectorAll(".delay-btn").forEach((button) => {
+        button.addEventListener("click", () => setDelayedSleep(button.dataset.delay));
+      });
+
+      document.querySelector("#customDelayBtn").addEventListener("click", () => setDelayedSleep(customDelayInput.value));
 
       [sleepInput, wakeInput, moodInput, caffeineInput, exerciseTypeInput, exerciseMinutesInput].forEach((input) => {
         input.addEventListener("input", () => {
