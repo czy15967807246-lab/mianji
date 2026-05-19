@@ -495,7 +495,7 @@
 
       .action-row {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 10px;
         margin-top: 16px;
       }
@@ -507,7 +507,6 @@
       }
 
       .primary-btn {
-        grid-column: 1 / -1;
         border-color: var(--green-dark);
         background: var(--green);
         color: #fff;
@@ -857,6 +856,10 @@
           </div>
         </div>
 
+        <div class="action-row">
+          <button class="ghost-btn" id="quickWakeBtn" type="button">准备起床</button>
+        </div>
+
         <div class="two-col">
           <label class="field-block">
             <span>心情</span>
@@ -891,8 +894,6 @@
 
         <div class="action-row">
           <button class="primary-btn" id="saveBtn" type="button">保存并生成报告</button>
-          <button class="ghost-btn" id="quickSleepBtn" type="button">现在入睡</button>
-          <button class="ghost-btn" id="quickWakeBtn" type="button">现在起床</button>
         </div>
       </section>
 
@@ -1421,7 +1422,7 @@
             ${(report.factors || []).map((factor) => `<span class="chip">${escapeHtml(factor)}</span>`).join("")}
           </div>
           <div class="feedback-toggle">
-            <span>闯关反馈${navigator.vibrate ? "" : "，此设备可能不支持网页震动"}</span>
+            <span>声效反馈${navigator.vibrate ? "" : "，此设备可能不支持网页震动"}</span>
             <button id="feedbackToggle" type="button">${feedbackEnabled ? "已开启" : "已关闭"}</button>
           </div>
         `;
@@ -1544,17 +1545,11 @@
       }
 
       document.querySelector("#saveBtn").addEventListener("click", () => saveRecord());
-      document.querySelector("#quickSleepBtn").addEventListener("click", () => {
-        feedback("tap");
-        sleepInput.value = nowTime();
-        saveRecord(true);
-        showToast("已填入当前入睡时间");
-      });
       document.querySelector("#quickWakeBtn").addEventListener("click", () => {
         feedback("tap");
         wakeInput.value = nowTime();
         saveRecord(true);
-        showToast("已填入当前起床时间");
+        showToast("已填入起床时间");
       });
 
       document.querySelectorAll(".delay-btn").forEach((button) => {
