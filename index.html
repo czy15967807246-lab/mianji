@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7fbf1" />
+    <meta name="theme-color" content="#D0E6FD" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="眠迹" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
@@ -12,23 +12,23 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f7fbf1;
+        --bg: #D0E6FD;
         --surface: rgba(255, 255, 255, 0.97);
         --surface-solid: #ffffff;
-        --surface-muted: #f8faf5;
-        --ink: #182214;
-        --muted: #687461;
-        --line: #e1ecd9;
-        --blue: #1cb0f6;
-        --green: #58cc02;
-        --green-dark: #43a900;
-        --green-soft: #e8f8df;
-        --yellow: #ffc800;
-        --orange: #ff9600;
-        --red: #ff4b4b;
-        --shadow: 0 14px 34px rgba(49, 91, 31, 0.1);
-        --soft-shadow: 0 8px 22px rgba(49, 91, 31, 0.08);
-        --press-shadow: 0 4px 0 #42a900;
+        --surface-muted: #F7FBFF;
+        --ink: #162660;
+        --muted: rgba(22, 38, 96, 0.68);
+        --line: rgba(22, 38, 96, 0.14);
+        --blue: #162660;
+        --green: #162660;
+        --green-dark: #0F1B4A;
+        --green-soft: #D0E6FD;
+        --yellow: #D0E6FD;
+        --orange: #162660;
+        --red: #B64242;
+        --shadow: 0 14px 34px rgba(22, 38, 96, 0.12);
+        --soft-shadow: 0 8px 22px rgba(22, 38, 96, 0.1);
+        --press-shadow: 0 4px 0 #0F1B4A;
       }
 
       * {
@@ -43,9 +43,9 @@
         margin: 0;
         min-height: 100dvh;
         background:
-          radial-gradient(circle at 12% -10%, rgba(88, 204, 2, 0.14), transparent 18rem),
-          radial-gradient(circle at 100% 5%, rgba(28, 176, 246, 0.1), transparent 16rem),
-          linear-gradient(180deg, #fbfef7 0%, var(--bg) 56%, #eff7e9 100%);
+          radial-gradient(circle at 12% -10%, rgba(255, 255, 255, 0.7), transparent 18rem),
+          radial-gradient(circle at 100% 5%, rgba(22, 38, 96, 0.12), transparent 16rem),
+          linear-gradient(180deg, #FFFFFF 0%, var(--bg) 58%, #BFD9F4 100%);
         color: var(--ink);
         font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
         letter-spacing: 0;
@@ -79,9 +79,9 @@
         min-width: 0;
         max-width: 100%;
         min-height: 48px;
-        border: 1px solid #dfeadc;
+        border: 1px solid rgba(22, 38, 96, 0.16);
         border-radius: 8px;
-        background: #fbfcf8;
+        background: #FFFFFF;
         color: var(--ink);
         padding: 12px;
         outline: none;
@@ -97,8 +97,8 @@
       select:focus,
       textarea:focus,
       button:focus-visible {
-        border-color: rgba(88, 204, 2, 0.72);
-        box-shadow: 0 0 0 4px rgba(88, 204, 2, 0.16);
+        border-color: rgba(22, 38, 96, 0.72);
+        box-shadow: 0 0 0 4px rgba(208, 230, 253, 0.8);
       }
 
       h1,
@@ -146,9 +146,9 @@
       .brand-mark {
         width: 42px;
         height: 42px;
-        border: 1px solid #bdeab2;
+        border: 1px solid rgba(22, 38, 96, 0.16);
         border-radius: 8px;
-        background: linear-gradient(180deg, #88df41, var(--green));
+        background: linear-gradient(180deg, #D0E6FD, #FFFFFF);
         box-shadow: var(--soft-shadow);
         flex-shrink: 0;
         display: block;
@@ -221,11 +221,11 @@
       .overview-card {
         margin-bottom: 12px;
         padding: 16px;
-        border: 1px solid #d5ebcf;
+        border: 1px solid rgba(22, 38, 96, 0.14);
         border-radius: 8px;
         background:
-          radial-gradient(circle at 96% 0%, rgba(255, 200, 0, 0.18), transparent 8rem),
-          linear-gradient(180deg, #ffffff, #f7fff1);
+          radial-gradient(circle at 96% 0%, rgba(208, 230, 253, 0.9), transparent 8rem),
+          linear-gradient(180deg, #FFFFFF, #F4FAFF);
         box-shadow: var(--shadow);
       }
 
@@ -241,7 +241,7 @@
         width: 96px;
         height: 96px;
         border-radius: 50%;
-        background: conic-gradient(var(--green) calc(var(--score, 0) * 1%), #e3f3dc 0);
+        background: conic-gradient(var(--blue) calc(var(--score, 0) * 1%), rgba(208, 230, 253, 0.82) 0);
         box-shadow: var(--soft-shadow);
       }
 
@@ -252,7 +252,7 @@
         height: 76px;
         border-radius: 50%;
         background: #ffffff;
-        border: 1px solid #ebf5e6;
+        border: 1px solid rgba(22, 38, 96, 0.12);
         font-size: 25px;
         font-weight: 850;
         font-variant-numeric: tabular-nums;
@@ -269,7 +269,7 @@
 
       .overview-copy p {
         margin-top: 8px;
-        color: #34402f;
+        color: var(--ink);
         font-size: 14px;
         line-height: 1.45;
       }
@@ -281,14 +281,14 @@
         margin-top: 8px;
         padding: 0 9px;
         border-radius: 999px;
-        background: #e5ffd8;
-        color: #2f7d09;
+        background: var(--green-soft);
+        color: var(--ink);
         font-size: 12px;
         font-weight: 800;
       }
 
       .overview-delta.down {
-        background: #ffe8e6;
+        background: #FFFFFF;
         color: #c7362f;
       }
 
@@ -305,10 +305,10 @@
         align-items: center;
         min-height: 28px;
         padding: 0 10px;
-        border: 1px solid #e3efd9;
+        border: 1px solid rgba(22, 38, 96, 0.12);
         border-radius: 999px;
         background: #ffffff;
-        color: #34402f;
+        color: var(--ink);
         font-size: 12px;
         font-weight: 750;
       }
@@ -318,7 +318,7 @@
         gap: 10px;
         margin-top: 12px;
         padding-top: 12px;
-        border-top: 1px solid #e3efd9;
+        border-top: 1px solid rgba(22, 38, 96, 0.12);
         color: var(--muted);
         font-size: 12px;
         font-weight: 750;
@@ -327,9 +327,9 @@
       .feedback-toggle button {
         min-height: 32px;
         padding: 0 12px;
-        border: 1px solid #d8ead0;
+        border: 1px solid rgba(22, 38, 96, 0.14);
         background: #ffffff;
-        color: var(--green-dark);
+        color: var(--ink);
         font-size: 12px;
         font-weight: 850;
         box-shadow: var(--soft-shadow);
@@ -369,7 +369,7 @@
         display: grid;
         gap: 9px;
         padding: 12px;
-        border: 1px solid #e3efd9;
+        border: 1px solid rgba(22, 38, 96, 0.12);
         border-radius: 8px;
         background: #ffffff;
         box-shadow: var(--soft-shadow);
@@ -382,8 +382,8 @@
         max-width: 100%;
         min-height: 52px;
         padding: 10px 6px;
-        border-color: #e8f0e3;
-        background: #fbfdf8;
+        border-color: rgba(22, 38, 96, 0.12);
+        background: #FFFFFF;
         text-align: center;
         font-size: 17px;
         font-weight: 500;
@@ -426,9 +426,9 @@
       .delay-card {
         margin-top: 13px;
         padding: 14px;
-        border: 1px solid #d5ebcf;
+        border: 1px solid rgba(22, 38, 96, 0.14);
         border-radius: 8px;
-        background: linear-gradient(180deg, #fbfff7, #ffffff);
+        background: linear-gradient(180deg, #F7FBFF, #FFFFFF);
         box-shadow: var(--soft-shadow);
       }
 
@@ -460,11 +460,11 @@
       .delay-btn,
       .custom-delay button {
         min-height: 42px;
-        border: 1px solid #bfeab4;
+        border: 1px solid rgba(22, 38, 96, 0.18);
         background: #ffffff;
-        color: var(--green-dark);
+        color: var(--ink);
         font-weight: 850;
-        box-shadow: 0 3px 0 #d4edca;
+        box-shadow: 0 3px 0 rgba(22, 38, 96, 0.12);
       }
 
       .custom-delay {
@@ -499,7 +499,7 @@
       }
 
       .ghost-btn {
-        border: 1px solid #d8ead0;
+        border: 1px solid rgba(22, 38, 96, 0.14);
         background: #fff;
         color: var(--blue);
         box-shadow: var(--soft-shadow);
@@ -529,7 +529,7 @@
         width: 62px;
         height: 62px;
         border-radius: 50%;
-        background: conic-gradient(var(--green) calc(var(--score, 0) * 1%), #e3f3dc 0);
+        background: conic-gradient(var(--blue) calc(var(--score, 0) * 1%), rgba(208, 230, 253, 0.86) 0);
         color: var(--ink);
         font-size: 18px;
         font-weight: 850;
@@ -544,7 +544,7 @@
       .report-copy {
         display: grid;
         gap: 8px;
-        color: #2b2b30;
+        color: var(--ink);
         line-height: 1.55;
         font-size: 14px;
       }
@@ -660,7 +660,7 @@
         min-width: 46px;
         height: 46px;
         border-radius: 50%;
-        background: #e5ffd8;
+        background: var(--green-soft);
         color: var(--green-dark);
         font-size: 16px;
         font-weight: 850;
@@ -701,9 +701,9 @@
       }
 
       .nav-btn.active {
-        background: #e5ffd8;
+        background: var(--green-soft);
         color: var(--green-dark);
-        box-shadow: inset 0 -3px 0 #b7eaa7;
+        box-shadow: inset 0 -3px 0 rgba(22, 38, 96, 0.18);
       }
 
       .nav-btn svg {
@@ -792,8 +792,8 @@
         <div class="brand-lockup">
           <div class="brand-mark" aria-hidden="true">
             <svg viewBox="0 0 64 64">
-              <path d="M12 48c12-16 26-26 42-32" fill="none" stroke="#d9ffd1" stroke-width="4" stroke-linecap="round" opacity="0.72"/>
-              <g fill="#ffffff">
+              <path d="M12 48c12-16 26-26 42-32" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.72"/>
+              <g fill="#162660">
                 <ellipse cx="18" cy="43" rx="6.5" ry="5.2" transform="rotate(-24 18 43)"/>
                 <circle cx="12.5" cy="36" r="2.4"/>
                 <circle cx="17" cy="33.8" r="2.4"/>
@@ -803,7 +803,7 @@
                 <circle cx="30.5" cy="27.5" r="1.8"/>
                 <circle cx="34.2" cy="28.2" r="1.8"/>
               </g>
-              <path d="M44 20c5-4 12-1 11 5-.8 4.7-7.2 4.9-8.4 1.2-1.1-3.4 2.6-6.3 6.8-4.9" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+              <path d="M44 20c5-4 12-1 11 5-.8 4.7-7.2 4.9-8.4 1.2-1.1-3.4 2.6-6.3 6.8-4.9" fill="none" stroke="#162660" stroke-width="4.5" stroke-linecap="round"/>
             </svg>
           </div>
           <div>
@@ -1449,7 +1449,7 @@
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, width, height);
         const maxValue = Math.max(options.max || 0, ...series.flatMap((item) => item.values.map((point) => point.value || 0)), 1);
-        ctx.strokeStyle = "#e5e5ea";
+        ctx.strokeStyle = "#D0E6FD";
         ctx.lineWidth = 1;
         for (let i = 0; i <= 4; i += 1) {
           const y = pad + ((height - pad * 2) / 4) * i;
@@ -1478,7 +1478,7 @@
             ctx.fill();
           });
         });
-        ctx.fillStyle = "#6e6e73";
+        ctx.fillStyle = "#162660";
         ctx.font = "20px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
         ctx.textAlign = "center";
         options.labels.forEach((label, index) => {
@@ -1495,8 +1495,8 @@
         const labels = days.map((day) => day.slice(5).replace("-", "/"));
         const sleepValues = days.map((day) => ({ value: sleepHours(records[day]?.sleepTime, records[day]?.wakeTime) || 0 }));
         const caffeineValues = days.map((day) => ({ value: Number(records[day]?.caffeine || 0) }));
-        drawLineChart(document.querySelector("#sleepChart"), [{ color: "#007aff", values: sleepValues }], { labels, max: 10 });
-        drawLineChart(document.querySelector("#caffeineChart"), [{ color: "#ff9f0a", values: caffeineValues }], { labels, max: 400 });
+        drawLineChart(document.querySelector("#sleepChart"), [{ color: "#162660", values: sleepValues }], { labels, max: 10 });
+        drawLineChart(document.querySelector("#caffeineChart"), [{ color: "#162660", values: caffeineValues }], { labels, max: 400 });
       }
 
       function updateHistory() {
