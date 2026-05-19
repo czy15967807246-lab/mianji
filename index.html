@@ -112,7 +112,10 @@
       .bottom-nav,
       .history-item,
       .report-score,
-      .chart-head {
+      .chart-head,
+      .feedback-toggle,
+      .overview-head,
+      .history-top {
         display: flex;
         align-items: center;
       }
@@ -180,6 +183,121 @@
         box-shadow: var(--shadow);
         padding: 16px;
         backdrop-filter: blur(22px);
+      }
+
+      .overview-card {
+        margin-bottom: 12px;
+        padding: 16px;
+        border: 1px solid rgba(0, 122, 255, 0.16);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(239, 247, 255, 0.88)),
+          radial-gradient(circle at 92% 10%, rgba(52, 199, 89, 0.16), transparent 12rem);
+        box-shadow: var(--shadow);
+      }
+
+      .overview-head {
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .score-ring {
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: conic-gradient(var(--blue) calc(var(--score, 0) * 1%), rgba(0, 122, 255, 0.1) 0);
+      }
+
+      .score-ring-inner {
+        display: grid;
+        place-items: center;
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        font-size: 25px;
+        font-weight: 850;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .overview-copy {
+        min-width: 0;
+      }
+
+      .overview-copy h2 {
+        margin-top: 4px;
+        font-size: 24px;
+      }
+
+      .overview-copy p {
+        margin-top: 8px;
+        color: #3a3a40;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .overview-delta {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        margin-top: 8px;
+        padding: 0 9px;
+        border-radius: 999px;
+        background: rgba(52, 199, 89, 0.12);
+        color: #168a3a;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .overview-delta.down {
+        background: rgba(255, 59, 48, 0.1);
+        color: #c7362f;
+      }
+
+      .overview-chips,
+      .history-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 0 10px;
+        border: 1px solid rgba(60, 60, 67, 0.1);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        color: #34343a;
+        font-size: 12px;
+        font-weight: 750;
+      }
+
+      .feedback-toggle {
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(60, 60, 67, 0.1);
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 750;
+      }
+
+      .feedback-toggle button {
+        min-height: 32px;
+        padding: 0 12px;
+        border: 1px solid rgba(0, 122, 255, 0.18);
+        background: rgba(255, 255, 255, 0.82);
+        color: var(--blue);
+        font-size: 12px;
+        font-weight: 850;
       }
 
       .panel + .panel,
@@ -453,23 +571,33 @@
       }
 
       .history-item {
-        justify-content: space-between;
-        gap: 12px;
+        display: block;
         padding: 14px;
         border: 1px solid var(--line);
         border-radius: 8px;
         background: #fff;
       }
 
-      .history-item strong {
-        display: block;
-        margin-bottom: 5px;
+      .history-top {
+        justify-content: space-between;
+        gap: 12px;
       }
 
-      .history-item p {
+      .history-date strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 16px;
+      }
+
+      .history-date small,
+      .history-note {
         color: var(--muted);
         font-size: 13px;
         line-height: 1.4;
+      }
+
+      .history-note {
+        margin-top: 10px;
       }
 
       .history-meta {
@@ -479,6 +607,19 @@
         gap: 4px;
         color: var(--blue);
         font-weight: 800;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .score-badge {
+        display: grid;
+        place-items: center;
+        min-width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: rgba(0, 122, 255, 0.12);
+        color: var(--blue);
+        font-size: 16px;
+        font-weight: 850;
         font-variant-numeric: tabular-nums;
       }
 
@@ -560,6 +701,21 @@
           padding: 14px;
         }
 
+        .overview-head {
+          align-items: flex-start;
+        }
+
+        .score-ring {
+          width: 82px;
+          height: 82px;
+        }
+
+        .score-ring-inner {
+          width: 64px;
+          height: 64px;
+          font-size: 22px;
+        }
+
         .time-grid,
         .two-col,
         .exercise-row {
@@ -598,6 +754,8 @@
           <span>本次睡眠</span>
         </div>
       </section>
+
+      <section class="overview-card" id="overviewCard" aria-label="今日睡眠状态"></section>
 
       <section class="panel" data-view="today">
         <div class="section-title">
@@ -765,6 +923,10 @@
       const toastEl = document.querySelector("#toast");
       const historyList = document.querySelector("#historyList");
       const reportCard = document.querySelector("#reportCard");
+      const overviewCard = document.querySelector("#overviewCard");
+      const FEEDBACK_KEY = "mianji.feedback.enabled";
+      let feedbackEnabled = localStorage.getItem(FEEDBACK_KEY) !== "off";
+      let audioContext = null;
 
       const moodScore = {
         很好: 5,
@@ -846,6 +1008,54 @@
         return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
       }
 
+      function timeLabel(value) {
+        return value || "--";
+      }
+
+      function sleepTiming(startMinutes, endMinutes) {
+        if (startMinutes === null || endMinutes === null) {
+          return { type: "unknown", label: "时间未完整", penalty: 0, tip: "" };
+        }
+        if (startMinutes >= 300 && startMinutes < 720) {
+          return {
+            type: "day-sleep",
+            label: "通宵后补觉",
+            penalty: 22,
+            tip: "这次像是通宵后的补觉：时长可以回血，但昼夜节律会被打乱。今天尽量晒点自然光，晚上不要再把入睡时间拖太晚。",
+          };
+        }
+        if (startMinutes >= 120 && startMinutes < 300) {
+          return {
+            type: "late-night",
+            label: "入睡偏晚",
+            penalty: 10,
+            tip: "入睡时间已经偏晚，身体可能睡够了但节律没完全跟上。明天可以先提前 20-30 分钟上床。",
+          };
+        }
+        if (endMinutes >= 780 && endMinutes < 1080) {
+          return {
+            type: "late-wake",
+            label: "起床偏晚",
+            penalty: 8,
+            tip: "起床时间偏晚，可能会影响今晚困意。下午尽量少睡长觉，给晚上的睡意留空间。",
+          };
+        }
+        if (startMinutes >= 1260 || startMinutes < 90) {
+          return {
+            type: "night",
+            label: "节律正常",
+            penalty: -6,
+            tip: "入睡时段比较友好，继续保持类似节奏会更容易看到分数进步。",
+          };
+        }
+        return {
+          type: "neutral",
+          label: "节律可观察",
+          penalty: 0,
+          tip: "这次入睡时段不算极端，连续记录几天后再看趋势会更准。",
+        };
+      }
+
       function toMinutes(value) {
         if (!value) return null;
         const [hours, minutes] = value.split(":").map(Number);
@@ -865,6 +1075,15 @@
         const hours = Math.floor(value);
         const minutes = Math.round((value - hours) * 60);
         return `${hours}时${minutes ? `${minutes}分` : ""}`;
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
       }
 
       function numberOrBlank(value) {
@@ -905,6 +1124,47 @@
         durationEl.textContent = formatHours(sleepHours(sleepInput.value, wakeInput.value));
       }
 
+      function playTone(kind = "tap") {
+        if (!feedbackEnabled) return;
+        try {
+          audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+          const now = audioContext.currentTime;
+          const notes = kind === "success" ? [523.25, 659.25, 783.99] : [440, 587.33];
+          notes.forEach((frequency, index) => {
+            const oscillator = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            oscillator.type = "sine";
+            oscillator.frequency.value = frequency;
+            gain.gain.setValueAtTime(0.0001, now + index * 0.06);
+            gain.gain.exponentialRampToValueAtTime(0.08, now + index * 0.06 + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + index * 0.06 + 0.14);
+            oscillator.connect(gain).connect(audioContext.destination);
+            oscillator.start(now + index * 0.06);
+            oscillator.stop(now + index * 0.06 + 0.16);
+          });
+        } catch {
+          // 有些浏览器会限制网页音频，失败时安静跳过。
+        }
+      }
+
+      function haptic(pattern = [12]) {
+        if (!feedbackEnabled || !navigator.vibrate) return;
+        navigator.vibrate(pattern);
+      }
+
+      function feedback(kind = "tap") {
+        haptic(kind === "success" ? [12, 30, 18] : [10]);
+        playTone(kind);
+      }
+
+      function toggleFeedback() {
+        feedbackEnabled = !feedbackEnabled;
+        localStorage.setItem(FEEDBACK_KEY, feedbackEnabled ? "on" : "off");
+        feedback("tap");
+        updateOverview();
+        showToast(feedbackEnabled ? "声效反馈已开启" : "声效反馈已关闭");
+      }
+
       function saveRecord(quiet = false) {
         const record = collectForm();
         if (!record.sleepTime && !record.wakeTime && !record.mood && !record.notes && !record.caffeine && !record.exerciseType && !record.exerciseMinutes) {
@@ -914,7 +1174,10 @@
         records[record.date] = record;
         persistRecords();
         updateAllViews();
-        if (!quiet) showToast("已生成睡眠报告");
+        if (!quiet) {
+          feedback("success");
+          showToast("已生成睡眠报告");
+        }
       }
 
       function setDelayedSleep(minutes) {
@@ -944,48 +1207,73 @@
         });
       }
 
-      function buildReport(record) {
+      function previousRecord(dateKey) {
+        return Object.values(records)
+          .filter((record) => record.date < dateKey && sleepHours(record.sleepTime, record.wakeTime) !== null)
+          .sort((a, b) => b.date.localeCompare(a.date))[0];
+      }
+
+      function buildReport(record, includeDelta = true) {
         const hours = sleepHours(record.sleepTime, record.wakeTime);
+        const factors = [];
         if (hours === null) {
           return {
             score: 0,
             title: "等待完整记录",
             summary: "填进入睡和起床时间后，我会根据睡眠时长、心情、咖啡因和运动生成一份简短报告。",
             tips: ["今晚先把时间记录完整，连续记录 7 天后趋势会更有参考价值。"],
+            factors: ["未完成"],
           };
         }
 
-        let score = 70;
+        let score = 68;
         const tips = [];
-        if (hours >= 7 && hours <= 9) score += 14;
+        const startMinutes = toMinutes(record.sleepTime);
+        const endMinutes = toMinutes(record.wakeTime);
+        const timing = sleepTiming(startMinutes, endMinutes);
+        score -= timing.penalty;
+        factors.push(timing.label);
+        if (timing.tip) tips.push(timing.tip);
+
+        if (hours >= 7 && hours <= 9) {
+          score += 18;
+          factors.push("时长理想");
+        }
         if (hours < 6) {
           score -= 18;
-          tips.push("睡眠时长偏短，今晚可以把上床时间提前 30 分钟。");
+          factors.push("睡眠偏短");
+          tips.push("睡眠时长偏短，今晚别急着追求完美，先把入睡窗口提前 30 分钟就够了。");
         } else if (hours > 9.5) {
           score -= 6;
+          factors.push("睡眠偏长");
           tips.push("睡眠时长偏长，如果醒来仍疲惫，可以观察是否睡眠质量不稳。");
         } else {
-          tips.push("睡眠时长比较理想，建议保持相近的入睡和起床节奏。");
+          tips.push("睡眠时长比较理想，这次主要看节律、咖啡因和精神状态。");
         }
 
         const caffeine = Number(record.caffeine || 0);
         if (caffeine > 200) {
           score -= 12;
+          factors.push("咖啡因偏高");
           tips.push("咖啡因超过 200mg，尽量把咖啡安排在下午早些时候之前。");
         } else if (caffeine > 80) {
           score -= 5;
+          factors.push("咖啡因适中");
           tips.push("咖啡因摄入不算高，但如果入睡困难，可以继续下调一点。");
-        } else {
+        } else if (caffeine > 0) {
           score += 4;
+          factors.push("咖啡因较低");
           tips.push("咖啡因压力较低，对入睡更友好。");
         }
 
         const exerciseMinutes = Number(record.exerciseMinutes || 0);
         if (exerciseMinutes >= 20 && exerciseMinutes <= 80) {
           score += 8;
+          factors.push("运动加分");
           tips.push(`${record.exerciseType || "运动"} ${exerciseMinutes} 分钟是加分项，规律运动通常有助于睡眠。`);
         } else if (exerciseMinutes > 80) {
           score -= 4;
+          factors.push("运动偏多");
           tips.push("运动量较大，尽量避免临睡前进行高强度训练。");
         } else if (exerciseMinutes === 0) {
           tips.push("明天可以加入 15-30 分钟轻运动，比如散步。");
@@ -994,16 +1282,35 @@
         if (record.mood) {
           const moodValue = moodScore[record.mood] || 3;
           score += (moodValue - 3) * 4;
+          factors.push(`心情${record.mood}`);
           if (moodValue <= 2) tips.push("心情状态偏紧，睡前可以留 10 分钟做放松或写下明天要处理的事。");
         }
 
         score = Math.max(15, Math.min(100, Math.round(score)));
-        const title = score >= 85 ? "恢复感很好" : score >= 70 ? "整体稳定" : score >= 55 ? "有优化空间" : "需要温和调整";
+        const prev = includeDelta ? previousRecord(record.date || dateInput.value) : null;
+        let delta = null;
+        if (prev) {
+          const previousReport = buildReport({ ...prev, date: prev.date }, false);
+          delta = score - previousReport.score;
+          if (delta >= 5) tips.push(`比上一次高了 ${Math.round(delta)} 分，这种正反馈值得保留。`);
+          if (delta <= -8) tips.push("这次分数回落不代表失败，更像身体在提醒你：节律比单次睡眠时长更重要。");
+        }
+
+        const title =
+          timing.type === "day-sleep"
+            ? "像是通宵后的补觉"
+            : score >= 85
+              ? "恢复感很好"
+              : score >= 70
+                ? "整体稳定"
+                : score >= 55
+                  ? "有优化空间"
+                  : "需要温和调整";
         const exerciseText = record.exerciseType
           ? `${record.exerciseType}${exerciseMinutes ? ` ${exerciseMinutes} 分钟` : ""}`
           : "未记录运动";
-        const summary = `本次睡眠 ${formatHours(hours)}，咖啡因 ${Math.round(caffeine)}mg，${exerciseText}，心情${record.mood || "未选择"}。`;
-        return { score, title, summary, tips: tips.slice(0, 3) };
+        const summary = `本次 ${timeLabel(record.sleepTime)} 到 ${timeLabel(record.wakeTime)}，睡了 ${formatHours(hours)}。${timing.type === "day-sleep" ? "时长不是问题，真正扣分的是通宵后的节律冲击。" : `咖啡因 ${Math.round(caffeine)}mg，${exerciseText}，心情${record.mood || "未选择"}。`}`;
+        return { score, title, summary, tips: tips.slice(0, 4), factors: factors.slice(0, 4), delta };
       }
 
       function updateReport() {
@@ -1013,13 +1320,45 @@
           <div class="report-score">
             <div>
               <p class="eyebrow">睡眠报告</p>
-              <h2>${report.title}</h2>
+              <h2>${escapeHtml(report.title)}</h2>
             </div>
             <div class="ring" style="--score: ${report.score}">${report.score || "--"}</div>
           </div>
           <div class="report-copy">
-            <p>${report.summary}</p>
-            <ul>${report.tips.map((tip) => `<li>${tip}</li>`).join("")}</ul>
+            <p>${escapeHtml(report.summary)}</p>
+            <ul>${report.tips.map((tip) => `<li>${escapeHtml(tip)}</li>`).join("")}</ul>
+          </div>
+        `;
+      }
+
+      function updateOverview() {
+        const record = records[dateInput.value] || collectForm();
+        const report = buildReport(record);
+        const deltaClass = report.delta < 0 ? " down" : "";
+        const deltaText =
+          report.delta == null
+            ? "开始记录后会显示进步"
+            : report.delta >= 0
+              ? `比上次 +${Math.round(report.delta)}`
+              : `比上次 ${Math.round(report.delta)}`;
+        overviewCard.innerHTML = `
+          <div class="overview-head">
+            <div class="overview-copy">
+              <p class="eyebrow">今日睡眠健康</p>
+              <h2>${escapeHtml(report.title)}</h2>
+              <p>${escapeHtml(report.summary)}</p>
+              <span class="overview-delta${deltaClass}">${escapeHtml(deltaText)}</span>
+            </div>
+            <div class="score-ring" style="--score: ${report.score}">
+              <div class="score-ring-inner">${report.score || "--"}</div>
+            </div>
+          </div>
+          <div class="overview-chips">
+            ${(report.factors || []).map((factor) => `<span class="chip">${escapeHtml(factor)}</span>`).join("")}
+          </div>
+          <div class="feedback-toggle">
+            <span>轻声效 / 震动反馈${navigator.vibrate ? "" : "，此设备可能不支持网页震动"}</span>
+            <button id="feedbackToggle" type="button">${feedbackEnabled ? "已开启" : "已关闭"}</button>
           </div>
         `;
       }
@@ -1106,24 +1445,25 @@
           .map((record) => {
             const duration = formatHours(sleepHours(record.sleepTime, record.wakeTime));
             const report = buildReport(record);
-            const extras = [
-              record.mood ? `心情：${record.mood}` : "",
-              record.caffeine ? `咖啡因：${Math.round(Number(record.caffeine))}mg` : "",
-              record.exerciseType ? `运动：${record.exerciseType}${record.exerciseMinutes ? ` ${record.exerciseMinutes}分钟` : ""}` : "",
-              `评分：${report.score}`,
-            ]
-              .filter(Boolean)
-              .join(" · ");
+            const chips = [
+              duration !== "--" ? `睡眠 ${duration}` : "",
+              record.mood ? record.mood : "",
+              record.caffeine ? `${Math.round(Number(record.caffeine))}mg 咖啡因` : "",
+              record.exerciseType ? `${record.exerciseType}${record.exerciseMinutes ? ` ${record.exerciseMinutes}分钟` : ""}` : "",
+            ].filter(Boolean);
             return `
               <article class="history-item">
-                <div>
-                  <strong>${formatDay(record.date)}</strong>
-                  <p>${extras}</p>
+                <div class="history-top">
+                  <div class="history-date">
+                    <strong>${escapeHtml(formatDay(record.date))}</strong>
+                    <small>${escapeHtml(timeLabel(record.sleepTime))} - ${escapeHtml(timeLabel(record.wakeTime))}</small>
+                  </div>
+                  <div class="score-badge">${report.score || "--"}</div>
                 </div>
-                <div class="history-meta">
-                  <span>${duration}</span>
-                  <small>${record.sleepTime || "--"} - ${record.wakeTime || "--"}</small>
+                <div class="history-chips">
+                  ${chips.map((chip) => `<span class="chip">${escapeHtml(chip)}</span>`).join("")}
                 </div>
+                <p class="history-note">${escapeHtml(report.title)}：${escapeHtml(report.tips[0] || report.summary)}</p>
               </article>
             `;
           })
@@ -1132,6 +1472,7 @@
 
       function updateAllViews() {
         updateDuration();
+        updateOverview();
         updateReport();
         updateStats();
         updateCharts();
@@ -1140,21 +1481,33 @@
 
       document.querySelector("#saveBtn").addEventListener("click", () => saveRecord());
       document.querySelector("#quickSleepBtn").addEventListener("click", () => {
+        feedback("tap");
         sleepInput.value = nowTime();
         saveRecord(true);
         showToast("已填入当前入睡时间");
       });
       document.querySelector("#quickWakeBtn").addEventListener("click", () => {
+        feedback("tap");
         wakeInput.value = nowTime();
         saveRecord(true);
         showToast("已填入当前起床时间");
       });
 
       document.querySelectorAll(".delay-btn").forEach((button) => {
-        button.addEventListener("click", () => setDelayedSleep(button.dataset.delay));
+        button.addEventListener("click", () => {
+          feedback("tap");
+          setDelayedSleep(button.dataset.delay);
+        });
       });
 
-      document.querySelector("#customDelayBtn").addEventListener("click", () => setDelayedSleep(customDelayInput.value));
+      document.querySelector("#customDelayBtn").addEventListener("click", () => {
+        feedback("tap");
+        setDelayedSleep(customDelayInput.value);
+      });
+
+      overviewCard.addEventListener("click", (event) => {
+        if (event.target.id === "feedbackToggle") toggleFeedback();
+      });
 
       [sleepInput, wakeInput, moodInput, caffeineInput, exerciseTypeInput, exerciseMinutesInput].forEach((input) => {
         input.addEventListener("input", () => {
