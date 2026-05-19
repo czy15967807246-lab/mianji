@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f5ffe8" />
+    <meta name="theme-color" content="#f7fbf1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="眠迹" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
@@ -12,21 +12,23 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f5ffe8;
-        --surface: rgba(255, 255, 255, 0.96);
+        --bg: #f7fbf1;
+        --surface: rgba(255, 255, 255, 0.97);
         --surface-solid: #ffffff;
-        --surface-muted: #f7fbf1;
-        --ink: #17210f;
-        --muted: #66725c;
-        --line: #d8ead0;
+        --surface-muted: #f8faf5;
+        --ink: #182214;
+        --muted: #687461;
+        --line: #e1ecd9;
         --blue: #1cb0f6;
         --green: #58cc02;
         --green-dark: #43a900;
+        --green-soft: #e8f8df;
         --yellow: #ffc800;
         --orange: #ff9600;
         --red: #ff4b4b;
-        --shadow: 0 5px 0 #d0e7c8, 0 16px 28px rgba(52, 106, 24, 0.08);
-        --soft-shadow: 0 4px 0 #dcefd6, 0 10px 20px rgba(52, 106, 24, 0.07);
+        --shadow: 0 14px 34px rgba(49, 91, 31, 0.1);
+        --soft-shadow: 0 8px 22px rgba(49, 91, 31, 0.08);
+        --press-shadow: 0 4px 0 #42a900;
       }
 
       * {
@@ -41,9 +43,9 @@
         margin: 0;
         min-height: 100dvh;
         background:
-          radial-gradient(circle at 12% -8%, rgba(88, 204, 2, 0.18), transparent 20rem),
-          radial-gradient(circle at 100% 8%, rgba(28, 176, 246, 0.16), transparent 18rem),
-          linear-gradient(180deg, #fbfff4 0%, var(--bg) 52%, #edf9dd 100%);
+          radial-gradient(circle at 12% -10%, rgba(88, 204, 2, 0.14), transparent 18rem),
+          radial-gradient(circle at 100% 5%, rgba(28, 176, 246, 0.1), transparent 16rem),
+          linear-gradient(180deg, #fbfef7 0%, var(--bg) 56%, #eff7e9 100%);
         color: var(--ink);
         font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
         letter-spacing: 0;
@@ -58,7 +60,7 @@
 
       button {
         min-height: 46px;
-        border: 2px solid transparent;
+        border: 1px solid transparent;
         border-radius: 8px;
         cursor: pointer;
         touch-action: manipulation;
@@ -77,9 +79,9 @@
         min-width: 0;
         max-width: 100%;
         min-height: 48px;
-        border: 2px solid #e2eddc;
+        border: 1px solid #dfeadc;
         border-radius: 8px;
-        background: #fbfdf8;
+        background: #fbfcf8;
         color: var(--ink);
         padding: 12px;
         outline: none;
@@ -145,10 +147,10 @@
         position: relative;
         width: 42px;
         height: 42px;
-        border: 2px solid #2f7d09;
+        border: 1px solid #bdeab2;
         border-radius: 8px;
-        background: linear-gradient(180deg, #7ee02b, var(--green));
-        box-shadow: 0 4px 0 #38a000;
+        background: linear-gradient(180deg, #88df41, var(--green));
+        box-shadow: var(--soft-shadow);
         flex-shrink: 0;
       }
 
@@ -202,7 +204,7 @@
       .score-pill {
         min-width: 88px;
         padding: 10px 11px;
-        border: 2px solid #d8ead0;
+        border: 1px solid var(--line);
         border-radius: 8px;
         background: #ffffff;
         box-shadow: var(--soft-shadow);
@@ -226,7 +228,7 @@
       }
 
       .panel {
-        border: 2px solid var(--line);
+        border: 1px solid var(--line);
         border-radius: 8px;
         background: var(--surface);
         box-shadow: var(--shadow);
@@ -236,11 +238,11 @@
       .overview-card {
         margin-bottom: 12px;
         padding: 16px;
-        border: 2px solid #cfeec5;
+        border: 1px solid #d5ebcf;
         border-radius: 8px;
         background:
-          radial-gradient(circle at 95% 0%, rgba(255, 200, 0, 0.26), transparent 9rem),
-          linear-gradient(180deg, #ffffff, #f5ffef);
+          radial-gradient(circle at 96% 0%, rgba(255, 200, 0, 0.18), transparent 8rem),
+          linear-gradient(180deg, #ffffff, #f7fff1);
         box-shadow: var(--shadow);
       }
 
@@ -257,7 +259,7 @@
         height: 96px;
         border-radius: 50%;
         background: conic-gradient(var(--green) calc(var(--score, 0) * 1%), #e3f3dc 0);
-        box-shadow: 0 4px 0 #d2e9c9;
+        box-shadow: var(--soft-shadow);
       }
 
       .score-ring-inner {
@@ -267,7 +269,7 @@
         height: 76px;
         border-radius: 50%;
         background: #ffffff;
-        border: 2px solid #ebf5e6;
+        border: 1px solid #ebf5e6;
         font-size: 25px;
         font-weight: 850;
         font-variant-numeric: tabular-nums;
@@ -320,7 +322,7 @@
         align-items: center;
         min-height: 28px;
         padding: 0 10px;
-        border: 2px solid #e3efd9;
+        border: 1px solid #e3efd9;
         border-radius: 999px;
         background: #ffffff;
         color: #34402f;
@@ -333,7 +335,7 @@
         gap: 10px;
         margin-top: 12px;
         padding-top: 12px;
-        border-top: 2px solid #e3efd9;
+        border-top: 1px solid #e3efd9;
         color: var(--muted);
         font-size: 12px;
         font-weight: 750;
@@ -342,12 +344,12 @@
       .feedback-toggle button {
         min-height: 32px;
         padding: 0 12px;
-        border: 2px solid #d8ead0;
+        border: 1px solid #d8ead0;
         background: #ffffff;
         color: var(--green-dark);
         font-size: 12px;
         font-weight: 850;
-        box-shadow: 0 3px 0 #dcefd6;
+        box-shadow: var(--soft-shadow);
       }
 
       .panel + .panel,
@@ -370,11 +372,11 @@
         width: 142px;
         min-height: 44px;
         background: #fff;
-        border-color: #d8ead0;
+        border-color: var(--line);
       }
 
       .time-grid {
-        display: grid;
+        display: none;
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 10px;
       }
@@ -384,10 +386,10 @@
         display: grid;
         gap: 9px;
         padding: 12px;
-        border: 2px solid #e3efd9;
+        border: 1px solid #e3efd9;
         border-radius: 8px;
         background: #ffffff;
-        box-shadow: 0 3px 0 #e7f1df;
+        box-shadow: var(--soft-shadow);
         overflow: hidden;
       }
 
@@ -440,11 +442,11 @@
 
       .delay-card {
         margin-top: 13px;
-        padding: 12px;
-        border: 2px solid #d8ead0;
+        padding: 14px;
+        border: 1px solid #d5ebcf;
         border-radius: 8px;
-        background: linear-gradient(180deg, #f7fff0, #ffffff);
-        box-shadow: 0 3px 0 #e1efd8;
+        background: linear-gradient(180deg, #fbfff7, #ffffff);
+        box-shadow: var(--soft-shadow);
       }
 
       .delay-head {
@@ -475,7 +477,7 @@
       .delay-btn,
       .custom-delay button {
         min-height: 42px;
-        border: 2px solid #b7eaa7;
+        border: 1px solid #bfeab4;
         background: #ffffff;
         color: var(--green-dark);
         font-weight: 850;
@@ -510,14 +512,14 @@
         border-color: var(--green-dark);
         background: var(--green);
         color: #fff;
-        box-shadow: 0 5px 0 var(--green-dark);
+        box-shadow: var(--press-shadow);
       }
 
       .ghost-btn {
-        border: 2px solid #d8ead0;
+        border: 1px solid #d8ead0;
         background: #fff;
         color: var(--blue);
-        box-shadow: 0 4px 0 #dcefd6;
+        box-shadow: var(--soft-shadow);
       }
 
       .ghost-btn.danger {
@@ -525,7 +527,7 @@
       }
 
       .report-card {
-        border: 2px solid var(--line);
+        border: 1px solid var(--line);
         border-radius: 8px;
         background: #fff;
         padding: 15px;
@@ -579,10 +581,10 @@
         flex: 1;
         min-height: 76px;
         padding: 12px 10px;
-        border: 2px solid var(--line);
+        border: 1px solid var(--line);
         border-radius: 8px;
         background: #fff;
-        box-shadow: 0 3px 0 #e6f1df;
+        box-shadow: var(--soft-shadow);
       }
 
       .metrics strong,
@@ -604,7 +606,7 @@
 
       .chart-card {
         padding: 14px;
-        border: 2px solid var(--line);
+        border: 1px solid var(--line);
         border-radius: 8px;
         background: #fff;
         box-shadow: var(--soft-shadow);
@@ -631,10 +633,10 @@
       .history-item {
         display: block;
         padding: 14px;
-        border: 2px solid var(--line);
+        border: 1px solid var(--line);
         border-radius: 8px;
         background: #fff;
-        box-shadow: 0 4px 0 #e1efd8;
+        box-shadow: var(--soft-shadow);
       }
 
       .history-top {
@@ -698,7 +700,7 @@
         justify-content: space-around;
         gap: 8px;
         padding: 6px 12px calc(6px + env(safe-area-inset-bottom));
-        border-top: 2px solid var(--line);
+        border-top: 1px solid var(--line);
         background: rgba(255, 255, 255, 0.94);
         backdrop-filter: blur(18px);
       }
@@ -776,7 +778,6 @@
           font-size: 22px;
         }
 
-        .time-grid,
         .two-col,
         .exercise-row {
           display: grid;
@@ -1285,7 +1286,7 @@
           return {
             score: 0,
             title: "等待完整记录",
-            summary: "先完成今天这一关：填进入睡和起床时间，我会帮你判断恢复、节律和影响因素。",
+            summary: "先完成今天记录：填进入睡和起床时间，我会帮你判断恢复、节律和影响因素。",
             tips: ["先记录一条就好，连续 7 天后就能看到自己的睡眠进步曲线。"],
             factors: ["未完成"],
           };
@@ -1307,13 +1308,13 @@
         if (hours < 6) {
           score -= 18;
           factors.push("睡眠偏短");
-          tips.push("这关睡眠时间偏短，今晚别急着追求完美，先把入睡窗口提前 30 分钟就够了。");
+          tips.push("这次睡眠时间偏短，今晚别急着追求完美，先把入睡窗口提前 30 分钟就够了。");
         } else if (hours > 9.5) {
           score -= 6;
           factors.push("睡眠偏长");
           tips.push("睡眠时长偏长，如果醒来仍疲惫，可以观察是否睡眠质量不稳。");
         } else {
-          tips.push("睡眠时长达标，这一关主要看节律、咖啡因和精神状态。");
+          tips.push("睡眠时长达标，这次主要看节律、咖啡因和精神状态。");
         }
 
         const caffeine = Number(record.caffeine || 0);
