@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f5f5f7" />
+    <meta name="theme-color" content="#f5ffe8" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="眠迹" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
@@ -12,19 +12,21 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f5f5f7;
-        --surface: rgba(255, 255, 255, 0.88);
+        --bg: #f5ffe8;
+        --surface: rgba(255, 255, 255, 0.96);
         --surface-solid: #ffffff;
-        --surface-muted: #f2f2f7;
-        --ink: #111114;
-        --muted: #6e6e73;
-        --line: rgba(60, 60, 67, 0.14);
-        --blue: #007aff;
-        --green: #34c759;
-        --orange: #ff9f0a;
-        --red: #ff3b30;
-        --shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-        --soft-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+        --surface-muted: #f7fbf1;
+        --ink: #17210f;
+        --muted: #66725c;
+        --line: #d8ead0;
+        --blue: #1cb0f6;
+        --green: #58cc02;
+        --green-dark: #43a900;
+        --yellow: #ffc800;
+        --orange: #ff9600;
+        --red: #ff4b4b;
+        --shadow: 0 5px 0 #d0e7c8, 0 16px 28px rgba(52, 106, 24, 0.08);
+        --soft-shadow: 0 4px 0 #dcefd6, 0 10px 20px rgba(52, 106, 24, 0.07);
       }
 
       * {
@@ -39,8 +41,9 @@
         margin: 0;
         min-height: 100dvh;
         background:
-          radial-gradient(circle at 20% -10%, rgba(0, 122, 255, 0.12), transparent 24rem),
-          linear-gradient(180deg, #fbfbfd 0%, var(--bg) 50%, #ececf1 100%);
+          radial-gradient(circle at 12% -8%, rgba(88, 204, 2, 0.18), transparent 20rem),
+          radial-gradient(circle at 100% 8%, rgba(28, 176, 246, 0.16), transparent 18rem),
+          linear-gradient(180deg, #fbfff4 0%, var(--bg) 52%, #edf9dd 100%);
         color: var(--ink);
         font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
         letter-spacing: 0;
@@ -55,10 +58,16 @@
 
       button {
         min-height: 46px;
-        border: 0;
+        border: 2px solid transparent;
         border-radius: 8px;
         cursor: pointer;
         touch-action: manipulation;
+        transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+      }
+
+      button:active {
+        transform: translateY(3px);
+        box-shadow: none;
       }
 
       input,
@@ -68,9 +77,9 @@
         min-width: 0;
         max-width: 100%;
         min-height: 48px;
-        border: 1px solid rgba(60, 60, 67, 0.1);
+        border: 2px solid #e2eddc;
         border-radius: 8px;
-        background: rgba(247, 247, 250, 0.86);
+        background: #fbfdf8;
         color: var(--ink);
         padding: 12px;
         outline: none;
@@ -86,8 +95,8 @@
       select:focus,
       textarea:focus,
       button:focus-visible {
-        border-color: rgba(0, 122, 255, 0.55);
-        box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.14);
+        border-color: rgba(88, 204, 2, 0.72);
+        box-shadow: 0 0 0 4px rgba(88, 204, 2, 0.16);
       }
 
       h1,
@@ -123,18 +132,58 @@
       .topbar {
         justify-content: space-between;
         gap: 14px;
-        padding: 8px 2px 18px;
+        padding: 8px 2px 14px;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-mark {
+        position: relative;
+        width: 42px;
+        height: 42px;
+        border: 2px solid #2f7d09;
+        border-radius: 8px;
+        background: linear-gradient(180deg, #7ee02b, var(--green));
+        box-shadow: 0 4px 0 #38a000;
+        flex-shrink: 0;
+      }
+
+      .brand-mark::before {
+        content: "";
+        position: absolute;
+        left: 9px;
+        top: 11px;
+        width: 22px;
+        height: 14px;
+        border-radius: 999px 999px 8px 8px;
+        background: #fff;
+      }
+
+      .brand-mark::after {
+        content: "";
+        position: absolute;
+        left: 13px;
+        top: 16px;
+        width: 14px;
+        height: 2px;
+        border-radius: 999px;
+        background: #2f7d09;
+        box-shadow: 0 6px 0 rgba(47, 125, 9, 0.22);
       }
 
       .eyebrow {
         color: var(--muted);
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 850;
       }
 
       h1 {
         margin-top: 3px;
-        font-size: 34px;
+        font-size: 32px;
         line-height: 1.08;
         letter-spacing: 0;
       }
@@ -153,9 +202,9 @@
       .score-pill {
         min-width: 88px;
         padding: 10px 11px;
-        border: 1px solid rgba(0, 122, 255, 0.16);
+        border: 2px solid #d8ead0;
         border-radius: 8px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(239, 247, 255, 0.82));
+        background: #ffffff;
         box-shadow: var(--soft-shadow);
         text-align: center;
         backdrop-filter: blur(18px);
@@ -177,22 +226,21 @@
       }
 
       .panel {
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 8px;
         background: var(--surface);
         box-shadow: var(--shadow);
         padding: 16px;
-        backdrop-filter: blur(22px);
       }
 
       .overview-card {
         margin-bottom: 12px;
         padding: 16px;
-        border: 1px solid rgba(0, 122, 255, 0.16);
+        border: 2px solid #cfeec5;
         border-radius: 8px;
         background:
-          linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(239, 247, 255, 0.88)),
-          radial-gradient(circle at 92% 10%, rgba(52, 199, 89, 0.16), transparent 12rem);
+          radial-gradient(circle at 95% 0%, rgba(255, 200, 0, 0.26), transparent 9rem),
+          linear-gradient(180deg, #ffffff, #f5ffef);
         box-shadow: var(--shadow);
       }
 
@@ -208,7 +256,8 @@
         width: 96px;
         height: 96px;
         border-radius: 50%;
-        background: conic-gradient(var(--blue) calc(var(--score, 0) * 1%), rgba(0, 122, 255, 0.1) 0);
+        background: conic-gradient(var(--green) calc(var(--score, 0) * 1%), #e3f3dc 0);
+        box-shadow: 0 4px 0 #d2e9c9;
       }
 
       .score-ring-inner {
@@ -217,8 +266,8 @@
         width: 76px;
         height: 76px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.94);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        background: #ffffff;
+        border: 2px solid #ebf5e6;
         font-size: 25px;
         font-weight: 850;
         font-variant-numeric: tabular-nums;
@@ -235,7 +284,7 @@
 
       .overview-copy p {
         margin-top: 8px;
-        color: #3a3a40;
+        color: #34402f;
         font-size: 14px;
         line-height: 1.45;
       }
@@ -247,14 +296,14 @@
         margin-top: 8px;
         padding: 0 9px;
         border-radius: 999px;
-        background: rgba(52, 199, 89, 0.12);
-        color: #168a3a;
+        background: #e5ffd8;
+        color: #2f7d09;
         font-size: 12px;
         font-weight: 800;
       }
 
       .overview-delta.down {
-        background: rgba(255, 59, 48, 0.1);
+        background: #ffe8e6;
         color: #c7362f;
       }
 
@@ -271,10 +320,10 @@
         align-items: center;
         min-height: 28px;
         padding: 0 10px;
-        border: 1px solid rgba(60, 60, 67, 0.1);
+        border: 2px solid #e3efd9;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.72);
-        color: #34343a;
+        background: #ffffff;
+        color: #34402f;
         font-size: 12px;
         font-weight: 750;
       }
@@ -284,7 +333,7 @@
         gap: 10px;
         margin-top: 12px;
         padding-top: 12px;
-        border-top: 1px solid rgba(60, 60, 67, 0.1);
+        border-top: 2px solid #e3efd9;
         color: var(--muted);
         font-size: 12px;
         font-weight: 750;
@@ -293,11 +342,12 @@
       .feedback-toggle button {
         min-height: 32px;
         padding: 0 12px;
-        border: 1px solid rgba(0, 122, 255, 0.18);
-        background: rgba(255, 255, 255, 0.82);
-        color: var(--blue);
+        border: 2px solid #d8ead0;
+        background: #ffffff;
+        color: var(--green-dark);
         font-size: 12px;
         font-weight: 850;
+        box-shadow: 0 3px 0 #dcefd6;
       }
 
       .panel + .panel,
@@ -320,6 +370,7 @@
         width: 142px;
         min-height: 44px;
         background: #fff;
+        border-color: #d8ead0;
       }
 
       .time-grid {
@@ -333,10 +384,10 @@
         display: grid;
         gap: 9px;
         padding: 12px;
-        border: 1px solid rgba(60, 60, 67, 0.12);
+        border: 2px solid #e3efd9;
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.92);
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+        background: #ffffff;
+        box-shadow: 0 3px 0 #e7f1df;
         overflow: hidden;
       }
 
@@ -346,8 +397,8 @@
         max-width: 100%;
         min-height: 52px;
         padding: 10px 6px;
-        border-color: rgba(60, 60, 67, 0.08);
-        background: rgba(248, 249, 252, 0.92);
+        border-color: #e8f0e3;
+        background: #fbfdf8;
         text-align: center;
         font-size: 17px;
         font-weight: 500;
@@ -360,7 +411,7 @@
       .field-block > span {
         color: var(--muted);
         font-size: 13px;
-        font-weight: 750;
+        font-weight: 850;
       }
 
       .field-block {
@@ -390,9 +441,10 @@
       .delay-card {
         margin-top: 13px;
         padding: 12px;
-        border: 1px solid rgba(0, 122, 255, 0.14);
+        border: 2px solid #d8ead0;
         border-radius: 8px;
-        background: linear-gradient(180deg, rgba(245, 250, 255, 0.96), rgba(255, 255, 255, 0.9));
+        background: linear-gradient(180deg, #f7fff0, #ffffff);
+        box-shadow: 0 3px 0 #e1efd8;
       }
 
       .delay-head {
@@ -406,7 +458,7 @@
       .delay-head span {
         color: var(--muted);
         font-size: 13px;
-        font-weight: 750;
+        font-weight: 850;
       }
 
       .delay-head small {
@@ -423,10 +475,11 @@
       .delay-btn,
       .custom-delay button {
         min-height: 42px;
-        border: 1px solid rgba(0, 122, 255, 0.18);
-        background: rgba(255, 255, 255, 0.92);
-        color: var(--blue);
-        font-weight: 800;
+        border: 2px solid #b7eaa7;
+        background: #ffffff;
+        color: var(--green-dark);
+        font-weight: 850;
+        box-shadow: 0 3px 0 #d4edca;
       }
 
       .custom-delay {
@@ -450,19 +503,22 @@
       .primary-btn,
       .ghost-btn {
         padding: 0 15px;
-        font-weight: 800;
+        font-weight: 900;
       }
 
       .primary-btn {
         grid-column: 1 / -1;
-        background: var(--blue);
+        border-color: var(--green-dark);
+        background: var(--green);
         color: #fff;
+        box-shadow: 0 5px 0 var(--green-dark);
       }
 
       .ghost-btn {
-        border: 1px solid var(--line);
+        border: 2px solid #d8ead0;
         background: #fff;
         color: var(--blue);
+        box-shadow: 0 4px 0 #dcefd6;
       }
 
       .ghost-btn.danger {
@@ -470,10 +526,11 @@
       }
 
       .report-card {
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 8px;
         background: #fff;
         padding: 15px;
+        box-shadow: var(--soft-shadow);
       }
 
       .report-score {
@@ -488,7 +545,7 @@
         width: 62px;
         height: 62px;
         border-radius: 50%;
-        background: conic-gradient(var(--blue) calc(var(--score, 0) * 1%), #e5e5ea 0);
+        background: conic-gradient(var(--green) calc(var(--score, 0) * 1%), #e3f3dc 0);
         color: var(--ink);
         font-size: 18px;
         font-weight: 850;
@@ -523,9 +580,10 @@
         flex: 1;
         min-height: 76px;
         padding: 12px 10px;
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 8px;
         background: #fff;
+        box-shadow: 0 3px 0 #e6f1df;
       }
 
       .metrics strong,
@@ -547,9 +605,10 @@
 
       .chart-card {
         padding: 14px;
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 8px;
         background: #fff;
+        box-shadow: var(--soft-shadow);
       }
 
       .chart-head {
@@ -573,9 +632,10 @@
       .history-item {
         display: block;
         padding: 14px;
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 8px;
         background: #fff;
+        box-shadow: 0 4px 0 #e1efd8;
       }
 
       .history-top {
@@ -616,8 +676,8 @@
         min-width: 46px;
         height: 46px;
         border-radius: 50%;
-        background: rgba(0, 122, 255, 0.12);
-        color: var(--blue);
+        background: #e5ffd8;
+        color: var(--green-dark);
         font-size: 16px;
         font-weight: 850;
         font-variant-numeric: tabular-nums;
@@ -639,9 +699,9 @@
         justify-content: space-around;
         gap: 8px;
         padding: 6px 12px calc(6px + env(safe-area-inset-bottom));
-        border-top: 1px solid var(--line);
-        background: rgba(251, 251, 253, 0.82);
-        backdrop-filter: blur(22px);
+        border-top: 2px solid var(--line);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(18px);
       }
 
       .nav-btn {
@@ -653,12 +713,13 @@
         background: transparent;
         color: var(--muted);
         font-size: 12px;
-        font-weight: 750;
+        font-weight: 850;
       }
 
       .nav-btn.active {
-        background: rgba(0, 122, 255, 0.12);
-        color: var(--blue);
+        background: #e5ffd8;
+        color: var(--green-dark);
+        box-shadow: inset 0 -3px 0 #b7eaa7;
       }
 
       .nav-btn svg {
@@ -679,7 +740,7 @@
         max-width: min(90vw, 360px);
         padding: 12px 16px;
         border-radius: 8px;
-        background: rgba(25, 25, 28, 0.92);
+        background: rgba(31, 73, 13, 0.94);
         color: #fff;
         opacity: 0;
         transform: translate(-50%, 10px);
@@ -745,9 +806,12 @@
   <body>
     <main class="app-shell">
       <section class="topbar" aria-label="今日概览">
-        <div>
-          <p class="eyebrow" id="todayLabel">今天</p>
-          <h1>眠迹</h1>
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <p class="eyebrow" id="todayLabel">今天</p>
+            <h1>眠迹</h1>
+          </div>
         </div>
         <div class="score-pill">
           <strong id="sleepDuration">--</strong>
@@ -1220,8 +1284,8 @@
           return {
             score: 0,
             title: "等待完整记录",
-            summary: "填进入睡和起床时间后，我会根据睡眠时长、心情、咖啡因和运动生成一份简短报告。",
-            tips: ["今晚先把时间记录完整，连续记录 7 天后趋势会更有参考价值。"],
+            summary: "先完成今天这一关：填进入睡和起床时间，我会帮你判断恢复、节律和影响因素。",
+            tips: ["先记录一条就好，连续 7 天后就能看到自己的睡眠进步曲线。"],
             factors: ["未完成"],
           };
         }
@@ -1242,13 +1306,13 @@
         if (hours < 6) {
           score -= 18;
           factors.push("睡眠偏短");
-          tips.push("睡眠时长偏短，今晚别急着追求完美，先把入睡窗口提前 30 分钟就够了。");
+          tips.push("这关睡眠时间偏短，今晚别急着追求完美，先把入睡窗口提前 30 分钟就够了。");
         } else if (hours > 9.5) {
           score -= 6;
           factors.push("睡眠偏长");
           tips.push("睡眠时长偏长，如果醒来仍疲惫，可以观察是否睡眠质量不稳。");
         } else {
-          tips.push("睡眠时长比较理想，这次主要看节律、咖啡因和精神状态。");
+          tips.push("睡眠时长达标，这一关主要看节律、咖啡因和精神状态。");
         }
 
         const caffeine = Number(record.caffeine || 0);
@@ -1292,7 +1356,7 @@
         if (prev) {
           const previousReport = buildReport({ ...prev, date: prev.date }, false);
           delta = score - previousReport.score;
-          if (delta >= 5) tips.push(`比上一次高了 ${Math.round(delta)} 分，这种正反馈值得保留。`);
+          if (delta >= 5) tips.push(`比上一次高了 ${Math.round(delta)} 分，这次升级很明显，保留今天做对的部分。`);
           if (delta <= -8) tips.push("这次分数回落不代表失败，更像身体在提醒你：节律比单次睡眠时长更重要。");
         }
 
@@ -1344,7 +1408,7 @@
         overviewCard.innerHTML = `
           <div class="overview-head">
             <div class="overview-copy">
-              <p class="eyebrow">今日睡眠健康</p>
+              <p class="eyebrow">今日进度</p>
               <h2>${escapeHtml(report.title)}</h2>
               <p>${escapeHtml(report.summary)}</p>
               <span class="overview-delta${deltaClass}">${escapeHtml(deltaText)}</span>
@@ -1357,7 +1421,7 @@
             ${(report.factors || []).map((factor) => `<span class="chip">${escapeHtml(factor)}</span>`).join("")}
           </div>
           <div class="feedback-toggle">
-            <span>轻声效 / 震动反馈${navigator.vibrate ? "" : "，此设备可能不支持网页震动"}</span>
+            <span>闯关反馈${navigator.vibrate ? "" : "，此设备可能不支持网页震动"}</span>
             <button id="feedbackToggle" type="button">${feedbackEnabled ? "已开启" : "已关闭"}</button>
           </div>
         `;
