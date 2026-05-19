@@ -2,40 +2,14 @@
   <rect width="1024" height="1024" rx="224" fill="#162660"/>
 
   <g fill="#D0E6FD">
-    <g transform="translate(150 670) rotate(-24)">
-      <ellipse cx="88" cy="78" rx="70" ry="52"/>
-      <circle cx="22" cy="14" r="26"/>
-      <circle cx="72" cy="-10" r="28"/>
-      <circle cx="128" cy="2" r="26"/>
-      <circle cx="164" cy="48" r="24"/>
-    </g>
-
-    <g transform="translate(318 515) rotate(-24) scale(.78)">
-      <ellipse cx="88" cy="78" rx="70" ry="52"/>
-      <circle cx="22" cy="14" r="26"/>
-      <circle cx="72" cy="-10" r="28"/>
-      <circle cx="128" cy="2" r="26"/>
-      <circle cx="164" cy="48" r="24"/>
-    </g>
-
-    <g transform="translate(478 382) rotate(-24) scale(.58)">
-      <ellipse cx="88" cy="78" rx="70" ry="52"/>
-      <circle cx="22" cy="14" r="26"/>
-      <circle cx="72" cy="-10" r="28"/>
-      <circle cx="128" cy="2" r="26"/>
-      <circle cx="164" cy="48" r="24"/>
-    </g>
-
-    <g transform="translate(620 278) rotate(-24) scale(.42)">
-      <ellipse cx="88" cy="78" rx="70" ry="52"/>
-      <circle cx="22" cy="14" r="26"/>
-      <circle cx="72" cy="-10" r="28"/>
-      <circle cx="128" cy="2" r="26"/>
-      <circle cx="164" cy="48" r="24"/>
-    </g>
+    <ellipse cx="512" cy="606" rx="178" ry="142"/>
+    <circle cx="276" cy="370" r="68"/>
+    <circle cx="420" cy="274" r="76"/>
+    <circle cx="596" cy="274" r="76"/>
+    <circle cx="748" cy="370" r="68"/>
   </g>
 
-  <path d="M726 202c72-64 178-19 160 74-14 70-111 73-130 17-17-51 39-96 106-70" fill="none" stroke="#D0E6FD" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="210" cy="226" r="8" fill="#D0E6FD"/>
-  <circle cx="810" cy="168" r="6" fill="#D0E6FD"/>
+  <path d="M586 486c-82-58-185-8-169 71 17 84 166 58 158 151-6 70-101 96-174 45" fill="none" stroke="#162660" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M584 486c-56-88 42-146 111-99" fill="none" stroke="#162660" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="622" cy="387" r="22" fill="#162660"/>
 </svg>
