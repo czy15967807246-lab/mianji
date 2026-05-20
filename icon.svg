@@ -1,17 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
-  <rect width="1024" height="1024" rx="224" fill="#162660"/>
+  <defs>
+    <linearGradient id="bg" x1="512" y1="76" x2="512" y2="946" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D0E6FD"/>
+      <stop offset="0.66" stop-color="#D0E6FD"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="glow" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#162660" flood-opacity="0.16"/>
+    </filter>
+  </defs>
 
-  <path d="M622 228c-135-36-250 26-270 134-16 88 49 150 168 183 106 30 151 76 130 146-25 83-144 116-274 72" fill="none" stroke="#D0E6FD" stroke-width="92" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M622 228c-135-36-250 26-270 134-16 88 49 150 168 183 106 30 151 76 130 146-25 83-144 116-274 72" fill="none" stroke="#FFFFFF" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" opacity="0.72"/>
+  <rect width="1024" height="1024" rx="236" fill="url(#bg)"/>
+  <path d="M0 704c126-76 260-83 404-20 121 53 226 52 344-11 98-53 184-57 276-14v365H0z" fill="#162660"/>
 
-  <g fill="#D0E6FD">
-    <ellipse cx="430" cy="620" rx="72" ry="54" transform="rotate(-24 430 620)"/>
-    <circle cx="330" cy="506" r="34"/>
-    <circle cx="404" cy="456" r="38"/>
-    <circle cx="492" cy="460" r="38"/>
-    <circle cx="560" cy="520" r="34"/>
+  <g filter="url(#glow)">
+    <rect x="356" y="222" width="72" height="160" rx="36" fill="#162660"/>
+    <rect x="596" y="222" width="72" height="160" rx="36" fill="#162660"/>
   </g>
 
-  <circle cx="360" cy="342" r="14" fill="#FFFFFF" opacity="0.9"/>
-  <circle cx="690" cy="740" r="12" fill="#FFFFFF" opacity="0.78"/>
+  <path d="M118 620c78-59 126-58 121 12-5 65 67 96 178 76 110-20 205-84 298-191 34-39 86-16 72 36-22 83 38 121 148 73" fill="none" stroke="#162660" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M118 620c78-59 126-58 121 12-5 65 67 96 178 76 110-20 205-84 298-191 34-39 86-16 72 36-22 83 38 121 148 73" fill="none" stroke="#FFFFFF" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g fill="#FFFFFF">
+    <ellipse cx="256" cy="824" rx="52" ry="38" transform="rotate(-18 256 824)"/>
+    <circle cx="181" cy="770" r="22"/>
+    <circle cx="232" cy="736" r="24"/>
+    <circle cx="290" cy="738" r="24"/>
+    <circle cx="333" cy="780" r="21"/>
+  </g>
 </svg>
