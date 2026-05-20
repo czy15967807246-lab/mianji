@@ -154,7 +154,7 @@
         display: block;
       }
 
-      .brand-mark svg {
+      .brand-mark img {
         display: block;
         width: 100%;
         height: 100%;
@@ -423,7 +423,7 @@
         line-height: 1.45;
       }
 
-      .delay-card {
+      .quick-time-card {
         margin-top: 13px;
         padding: 14px;
         border: 1px solid rgba(22, 38, 96, 0.14);
@@ -432,7 +432,7 @@
         box-shadow: var(--soft-shadow);
       }
 
-      .delay-head {
+      .quick-time-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -440,42 +440,50 @@
         margin-bottom: 10px;
       }
 
-      .delay-head span {
+      .quick-time-head span {
         color: var(--muted);
         font-size: 13px;
         font-weight: 850;
       }
 
-      .delay-head small {
+      .quick-time-head small {
         color: var(--muted);
         font-size: 12px;
       }
 
-      .delay-options {
+      .quick-time-actions {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
       }
 
-      .delay-btn,
-      .custom-delay button {
-        min-height: 42px;
+      .time-action-btn {
+        display: grid;
+        gap: 5px;
+        min-height: 90px;
+        padding: 12px;
         border: 1px solid rgba(22, 38, 96, 0.18);
         background: #ffffff;
         color: var(--ink);
-        font-weight: 850;
+        text-align: left;
         box-shadow: 0 3px 0 rgba(22, 38, 96, 0.12);
       }
 
-      .custom-delay {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 72px;
-        gap: 8px;
-        margin-top: 8px;
+      .time-action-btn span {
+        font-size: 17px;
+        font-weight: 900;
       }
 
-      .custom-delay input {
-        min-height: 42px;
+      .time-action-btn strong {
+        font-size: 25px;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .time-action-btn small {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 750;
       }
 
       .action-row {
@@ -767,7 +775,7 @@
           grid-template-columns: 1fr;
         }
 
-        .delay-options {
+        .quick-time-actions {
           grid-template-columns: 1fr;
         }
 
@@ -791,18 +799,7 @@
       <section class="topbar" aria-label="今日概览">
         <div class="brand-lockup">
           <div class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <rect width="64" height="64" rx="15" fill="#162660"/>
-              <path d="M0 42c7 1.4 12 4.7 17.1 9.6 5.5 5.3 11.7 7 19.9 6.4 9.4-.8 15.7-6.6 23.5-9.2 1.2-.4 2.4-.8 3.5-.9V64H0z" fill="#4E72BA"/>
-              <g transform="translate(7 5) scale(0.82)">
-                <path d="M20.3 21c-.8-7 0-12.3 2.3-14.5 2.6-2.6 6.9-.3 11.1 5.4 4.8-2 9.7-1.9 14.4.2 4.7-5.8 9.3-8 11.9-5.3 2.2 2.3 3.1 7.6 2.1 14.3 2.7 2.8 4.2 6.7 4 11.3l-.2 6.9c-.1 1.3-1 2.4-2.3 2.7-1.3.3-2.6-.4-3.2-1.6-3.2-6.2-8.1-9.6-14.3-9.9-6.8-.3-13.5 3.5-17.6 10-2.3 3.6-3.2 7.5-2.7 11.3.8 5.3 4.3 8.6 10.1 9.8 5.3 1.1 9.3.3 12.1-2.3 2.1-1.9 2.9-4.4 2.4-7.3-.6-3.1-3.1-5.4-8.1-7.3-4.4-1.8-6.8-4.1-7-7-.1-2.9 1.8-5.3 5.1-6.3 3.4-1 6.4 0 9.1 3 2.6 2.9 4.5 6.6 5.7 11.2 1.3 5.1 1 9.6-.9 13.3-2.9 5.5-8.9 8.6-17 8.7-8.9.2-16.2-2.7-21.9-8.6-5.3-5.4-8.1-12.2-7.9-19.6l.2-6c.1-4.3 1.6-8.1 4.4-11.3zm4.4-1 5.8-3.9c-2.4-3.4-4.4-5.2-6.2-5.5-.6 2-.6 5.1-.3 9.3.3 0 .5.1.7.1zm27.5-3.9 5.9 4c.4-4.2.3-7.4-.3-9.4-1.8.3-3.8 2.1-5.6 5.4z" fill="#FFFFFF"/>
-                <g fill="#162660">
-                  <ellipse cx="22.4" cy="25.6" rx="3.4" ry="4.6"/>
-                  <ellipse cx="41.6" cy="25.6" rx="3.4" ry="4.6"/>
-                  <ellipse cx="32" cy="20.2" rx="3.9" ry="5.3"/>
-                </g>
-              </g>
-            </svg>
+            <img src="./icon.svg" alt="" />
           </div>
           <div>
             <p class="eyebrow" id="todayLabel">今天</p>
@@ -837,24 +834,23 @@
           </label>
         </div>
 
-        <div class="delay-card" aria-label="准备睡觉">
-          <div class="delay-head">
-            <span>准备睡觉</span>
-            <small>按预计入睡时间填写</small>
+        <div class="quick-time-card" aria-label="一键记录睡眠时间">
+          <div class="quick-time-head">
+            <span>一键记录</span>
+            <small>点击后使用当前系统时间</small>
           </div>
-          <div class="delay-options">
-            <button class="delay-btn" type="button" data-delay="10">10 分钟后</button>
-            <button class="delay-btn" type="button" data-delay="15">15 分钟后</button>
-            <button class="delay-btn" type="button" data-delay="20">20 分钟后</button>
+          <div class="quick-time-actions">
+            <button class="time-action-btn" id="quickSleepBtn" type="button">
+              <span>准备睡觉</span>
+              <strong id="sleepActionTime">--:--</strong>
+              <small>点一下确定入睡时间</small>
+            </button>
+            <button class="time-action-btn" id="quickWakeBtn" type="button">
+              <span>准备起床</span>
+              <strong id="wakeActionTime">--:--</strong>
+              <small>点一下确定起床时间</small>
+            </button>
           </div>
-          <div class="custom-delay">
-            <input id="customDelay" type="number" min="1" max="180" step="1" placeholder="自定分钟" inputmode="numeric" />
-            <button id="customDelayBtn" type="button">填写</button>
-          </div>
-        </div>
-
-        <div class="action-row">
-          <button class="ghost-btn" id="quickWakeBtn" type="button">准备起床</button>
         </div>
 
         <div class="two-col">
@@ -980,7 +976,8 @@
       const exerciseTypeInput = document.querySelector("#exerciseType");
       const exerciseMinutesInput = document.querySelector("#exerciseMinutes");
       const notesInput = document.querySelector("#notes");
-      const customDelayInput = document.querySelector("#customDelay");
+      const sleepActionTime = document.querySelector("#sleepActionTime");
+      const wakeActionTime = document.querySelector("#wakeActionTime");
       const durationEl = document.querySelector("#sleepDuration");
       const toastEl = document.querySelector("#toast");
       const historyList = document.querySelector("#historyList");
@@ -1061,12 +1058,6 @@
 
       function nowTime() {
         const date = new Date();
-        return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
-      }
-
-      function timeAfterMinutes(minutes) {
-        const date = new Date();
-        date.setMinutes(date.getMinutes() + minutes);
         return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
       }
 
@@ -1184,6 +1175,8 @@
 
       function updateDuration() {
         durationEl.textContent = formatHours(sleepHours(sleepInput.value, wakeInput.value));
+        sleepActionTime.textContent = sleepInput.value || "--:--";
+        wakeActionTime.textContent = wakeInput.value || "--:--";
       }
 
       function playTone(kind = "tap") {
@@ -1242,16 +1235,16 @@
         }
       }
 
-      function setDelayedSleep(minutes) {
-        const rawDelay = Number(minutes);
-        if (!Number.isFinite(rawDelay) || rawDelay <= 0) {
-          showToast("请输入有效分钟数");
-          return;
-        }
-        const delay = Math.max(1, Math.min(180, Math.round(rawDelay)));
-        sleepInput.value = timeAfterMinutes(delay);
+      function markSleepNow() {
+        sleepInput.value = nowTime();
         saveRecord(true);
-        showToast(`已填入 ${delay} 分钟后的入睡时间`);
+        showToast("已记录准备睡觉时间");
+      }
+
+      function markWakeNow() {
+        wakeInput.value = nowTime();
+        saveRecord(true);
+        showToast("已记录准备起床时间");
       }
 
       function showToast(message) {
@@ -1542,23 +1535,14 @@
       }
 
       document.querySelector("#saveBtn").addEventListener("click", () => saveRecord());
+      document.querySelector("#quickSleepBtn").addEventListener("click", () => {
+        feedback("tap");
+        markSleepNow();
+      });
+
       document.querySelector("#quickWakeBtn").addEventListener("click", () => {
         feedback("tap");
-        wakeInput.value = nowTime();
-        saveRecord(true);
-        showToast("已填入起床时间");
-      });
-
-      document.querySelectorAll(".delay-btn").forEach((button) => {
-        button.addEventListener("click", () => {
-          feedback("tap");
-          setDelayedSleep(button.dataset.delay);
-        });
-      });
-
-      document.querySelector("#customDelayBtn").addEventListener("click", () => {
-        feedback("tap");
-        setDelayedSleep(customDelayInput.value);
+        markWakeNow();
       });
 
       overviewCard.addEventListener("click", (event) => {
