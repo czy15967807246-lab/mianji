@@ -457,9 +457,16 @@
         gap: 10px;
       }
 
+      .time-action-panel {
+        display: grid;
+        gap: 8px;
+        min-width: 0;
+      }
+
       .time-action-btn {
         display: grid;
         gap: 5px;
+        width: 100%;
         min-height: 90px;
         padding: 12px;
         border: 1px solid rgba(22, 38, 96, 0.18);
@@ -484,6 +491,26 @@
         color: var(--muted);
         font-size: 12px;
         font-weight: 750;
+      }
+
+      .manual-time {
+        display: grid;
+        gap: 6px;
+      }
+
+      .manual-time span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .manual-time input {
+        min-height: 44px;
+        background: #ffffff;
+        border-color: rgba(22, 38, 96, 0.14);
+        font-size: 18px;
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
       }
 
       .action-row {
@@ -812,8 +839,6 @@
         </div>
       </section>
 
-      <section class="overview-card" id="overviewCard" aria-label="今日睡眠状态"></section>
-
       <section class="panel" data-view="today">
         <div class="section-title">
           <div>
@@ -823,33 +848,34 @@
           <input id="recordDate" type="date" aria-label="选择日期" />
         </div>
 
-        <div class="time-grid">
-          <label class="time-card">
-            <span>入睡</span>
-            <input id="sleepTime" type="time" />
-          </label>
-          <label class="time-card">
-            <span>起床</span>
-            <input id="wakeTime" type="time" />
-          </label>
-        </div>
-
         <div class="quick-time-card" aria-label="一键记录睡眠时间">
           <div class="quick-time-head">
-            <span>一键记录</span>
-            <small>点击后使用当前系统时间</small>
+            <span>记录时间</span>
+            <small>可一键记录，也可手动补记</small>
           </div>
           <div class="quick-time-actions">
-            <button class="time-action-btn" id="quickSleepBtn" type="button">
-              <span>准备睡觉</span>
-              <strong id="sleepActionTime">--:--</strong>
-              <small>点一下确定入睡时间</small>
-            </button>
-            <button class="time-action-btn" id="quickWakeBtn" type="button">
-              <span>准备起床</span>
-              <strong id="wakeActionTime">--:--</strong>
-              <small>点一下确定起床时间</small>
-            </button>
+            <div class="time-action-panel">
+              <button class="time-action-btn" id="quickSleepBtn" type="button">
+                <span>今天就到这吧</span>
+                <strong id="sleepActionTime">--:--</strong>
+                <small>使用现在的系统时间</small>
+              </button>
+              <label class="manual-time">
+                <span>补记入睡时间</span>
+                <input id="sleepTime" type="time" />
+              </label>
+            </div>
+            <div class="time-action-panel">
+              <button class="time-action-btn" id="quickWakeBtn" type="button">
+                <span>我重生了</span>
+                <strong id="wakeActionTime">--:--</strong>
+                <small>使用现在的系统时间</small>
+              </button>
+              <label class="manual-time">
+                <span>补记起床时间</span>
+                <input id="wakeTime" type="time" />
+              </label>
+            </div>
           </div>
         </div>
 
@@ -982,9 +1008,7 @@
       const toastEl = document.querySelector("#toast");
       const historyList = document.querySelector("#historyList");
       const reportCard = document.querySelector("#reportCard");
-      const overviewCard = document.querySelector("#overviewCard");
-      const FEEDBACK_KEY = "mianji.feedback.enabled";
-      let feedbackEnabled = localStorage.getItem(FEEDBACK_KEY) !== "off";
+      let feedbackEnabled = false;
       let audioContext = null;
 
       const moodScore = {
@@ -1212,14 +1236,6 @@
         playTone(kind);
       }
 
-      function toggleFeedback() {
-        feedbackEnabled = !feedbackEnabled;
-        localStorage.setItem(FEEDBACK_KEY, feedbackEnabled ? "on" : "off");
-        feedback("tap");
-        updateOverview();
-        showToast(feedbackEnabled ? "声效反馈已开启" : "声效反馈已关闭");
-      }
-
       function saveRecord(quiet = false) {
         const record = collectForm();
         if (!record.sleepTime && !record.wakeTime && !record.mood && !record.notes && !record.caffeine && !record.exerciseType && !record.exerciseMinutes) {
@@ -1238,13 +1254,13 @@
       function markSleepNow() {
         sleepInput.value = nowTime();
         saveRecord(true);
-        showToast("已记录准备睡觉时间");
+        showToast("已记录今天就到这吧");
       }
 
       function markWakeNow() {
         wakeInput.value = nowTime();
         saveRecord(true);
-        showToast("已记录准备起床时间");
+        showToast("已记录我重生了");
       }
 
       function showToast(message) {
@@ -1387,35 +1403,7 @@
       }
 
       function updateOverview() {
-        const record = records[dateInput.value] || collectForm();
-        const report = buildReport(record);
-        const deltaClass = report.delta < 0 ? " down" : "";
-        const deltaText =
-          report.delta == null
-            ? "开始记录后会显示进步"
-            : report.delta >= 0
-              ? `比上次 +${Math.round(report.delta)}`
-              : `比上次 ${Math.round(report.delta)}`;
-        overviewCard.innerHTML = `
-          <div class="overview-head">
-            <div class="overview-copy">
-              <p class="eyebrow">今日进度</p>
-              <h2>${escapeHtml(report.title)}</h2>
-              <p>${escapeHtml(report.summary)}</p>
-              <span class="overview-delta${deltaClass}">${escapeHtml(deltaText)}</span>
-            </div>
-            <div class="score-ring" style="--score: ${report.score}">
-              <div class="score-ring-inner">${report.score || "--"}</div>
-            </div>
-          </div>
-          <div class="overview-chips">
-            ${(report.factors || []).map((factor) => `<span class="chip">${escapeHtml(factor)}</span>`).join("")}
-          </div>
-          <div class="feedback-toggle">
-            <span>声效反馈${navigator.vibrate ? "" : "，此设备可能不支持网页震动"}</span>
-            <button id="feedbackToggle" type="button">${feedbackEnabled ? "已开启" : "已关闭"}</button>
-          </div>
-        `;
+        return;
       }
 
       function updateStats() {
@@ -1545,15 +1533,21 @@
         markWakeNow();
       });
 
-      overviewCard.addEventListener("click", (event) => {
-        if (event.target.id === "feedbackToggle") toggleFeedback();
-      });
-
       [sleepInput, wakeInput, moodInput, caffeineInput, exerciseTypeInput, exerciseMinutesInput].forEach((input) => {
         input.addEventListener("input", () => {
           updateDuration();
           updateReport();
         });
+      });
+
+      sleepInput.addEventListener("change", () => {
+        saveRecord(true);
+        showToast("已更新入睡时间");
+      });
+
+      wakeInput.addEventListener("change", () => {
+        saveRecord(true);
+        showToast("已更新起床时间");
       });
 
       dateInput.addEventListener("change", () => fillForm(dateInput.value));
