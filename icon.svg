@@ -1,31 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
   <defs>
-    <linearGradient id="bg" x1="512" y1="76" x2="512" y2="946" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#D0E6FD"/>
-      <stop offset="0.66" stop-color="#D0E6FD"/>
-      <stop offset="1" stop-color="#FFFFFF"/>
+    <linearGradient id="night" x1="512" y1="36" x2="512" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#162660"/>
+      <stop offset="0.7" stop-color="#203D8E"/>
+      <stop offset="1" stop-color="#D0E6FD"/>
     </linearGradient>
-    <filter id="glow" x="-18%" y="-18%" width="136%" height="136%">
-      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#162660" flood-opacity="0.16"/>
+    <linearGradient id="moon" x1="326" y1="230" x2="734" y2="760" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.62" stop-color="#D0E6FD"/>
+      <stop offset="1" stop-color="#A8D3F8"/>
+    </linearGradient>
+    <filter id="lift" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="28" stdDeviation="30" flood-color="#07143E" flood-opacity="0.24"/>
     </filter>
   </defs>
 
-  <rect width="1024" height="1024" rx="236" fill="url(#bg)"/>
-  <path d="M0 704c126-76 260-83 404-20 121 53 226 52 344-11 98-53 184-57 276-14v365H0z" fill="#162660"/>
+  <rect width="1024" height="1024" rx="236" fill="url(#night)"/>
 
-  <g filter="url(#glow)">
-    <rect x="356" y="222" width="72" height="160" rx="36" fill="#162660"/>
-    <rect x="596" y="222" width="72" height="160" rx="36" fill="#162660"/>
+  <g fill="#FFFFFF" opacity="0.9">
+    <circle cx="230" cy="220" r="18"/>
+    <circle cx="790" cy="250" r="13"/>
+    <circle cx="840" cy="520" r="17"/>
+    <circle cx="176" cy="654" r="12"/>
+  </g>
+  <g fill="#D0E6FD" opacity="0.85">
+    <circle cx="278" cy="760" r="20"/>
+    <circle cx="368" cy="808" r="16"/>
+    <circle cx="474" cy="830" r="13"/>
+    <circle cx="596" cy="814" r="16"/>
+    <circle cx="706" cy="760" r="20"/>
   </g>
 
-  <path d="M118 620c78-59 126-58 121 12-5 65 67 96 178 76 110-20 205-84 298-191 34-39 86-16 72 36-22 83 38 121 148 73" fill="none" stroke="#162660" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M118 620c78-59 126-58 121 12-5 65 67 96 178 76 110-20 205-84 298-191 34-39 86-16 72 36-22 83 38 121 148 73" fill="none" stroke="#FFFFFF" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
-
-  <g fill="#FFFFFF">
-    <ellipse cx="256" cy="824" rx="52" ry="38" transform="rotate(-18 256 824)"/>
-    <circle cx="181" cy="770" r="22"/>
-    <circle cx="232" cy="736" r="24"/>
-    <circle cx="290" cy="738" r="24"/>
-    <circle cx="333" cy="780" r="21"/>
+  <g filter="url(#lift)">
+    <path d="M512 176c158 0 286 116 286 258 0 78-39 148-101 195 13 53-4 98-51 134-39-8-73-25-101-50-11 1-22 2-33 2-158 0-286-116-286-259 0-142 128-280 286-280z" fill="url(#moon)"/>
+    <path d="M378 486c33 42 79 65 132 65 55 0 102-25 136-69" fill="none" stroke="#162660" stroke-width="48" stroke-linecap="round"/>
+    <rect x="360" y="350" width="54" height="110" rx="27" fill="#162660"/>
+    <rect x="610" y="350" width="54" height="110" rx="27" fill="#162660"/>
   </g>
+
+  <path d="M232 790c82 46 178 72 280 72 106 0 205-28 290-78" fill="none" stroke="#FFFFFF" stroke-width="38" stroke-linecap="round" opacity="0.84"/>
 </svg>
