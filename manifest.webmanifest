@@ -1,0 +1,19 @@
+{
+  "name": "眠迹",
+  "short_name": "眠迹",
+  "description": "轻量记录入睡、起床与日常影响因素，观察自己的睡眠变化。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "id": "./index.html",
+  "display": "standalone",
+  "background_color": "#D0E6FD",
+  "theme_color": "#D0E6FD",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
